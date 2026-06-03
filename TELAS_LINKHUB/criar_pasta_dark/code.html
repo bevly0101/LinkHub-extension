@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova Hub - Create Folder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed-variant": "#004395",
+                      "secondary": "#505f76",
+                      "on-tertiary-container": "#fffbff",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#d8e2ff",
+                      "on-tertiary-fixed": "#311400",
+                      "tertiary-container": "#b75b00",
+                      "surface-container-lowest": "#0b121c",
+                      "inverse-surface": "#f8f9ff",
+                      "surface": "#121c2a",
+                      "primary": "#adc6ff",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#424754",
+                      "outline": "#8c919e",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "on-tertiary-fixed-variant": "#723600",
+                      "background": "#121c2a",
+                      "on-secondary-fixed": "#0b1c30",
+                      "on-surface": "#e2e2e6",
+                      "surface-container-high": "#27313f",
+                      "secondary-container": "#38485d",
+                      "on-primary": "#002d6f",
+                      "on-primary-container": "#d8e2ff",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary": "#223146",
+                      "inverse-primary": "#005ac2",
+                      "surface-container": "#1d2735",
+                      "surface-dim": "#121c2a",
+                      "tertiary": "#ffb786",
+                      "on-primary-fixed": "#001a42",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "surface-bright": "#38414e",
+                      "surface-tint": "#adc6ff",
+                      "surface-container-highest": "#333f50",
+                      "on-secondary-container": "#d3e4fe",
+                      "on-surface-variant": "#c2c6d6",
+                      "surface-container-low": "#1a232f",
+                      "primary-fixed-dim": "#adc6ff",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#121c2a",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "surface-variant": "#424754",
+                      "primary-container": "#004395",
+                      "error-container": "#93000a",
+                      "secondary-fixed": "#d3e4fe",
+                      "tertiary-fixed": "#ffdcc6",
+                      "on-background": "#e2e2e6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "container-max": "1200px",
+                      "unit": "8px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(26, 35, 47, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .squircle {
+            border-radius: 20px;
+        }
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: transform 0.2s ease, ring 0.2s ease;
+        }
+        .color-dot:hover {
+            transform: scale(1.1);
+        }
+        .color-dot.active {
+            box-shadow: 0 0 0 2px #121c2a, 0 0 0 4px var(--tw-shadow-color);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen relative overflow-hidden">
+<!-- Blurred Background Content (Simulated Dashboard) -->
+<div class="fixed inset-0 z-0 overflow-hidden pointer-events-none filter blur-sm opacity-20 scale-105">
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/70 border-b border-white/5 shadow-sm">
+<span class="font-display text-headline-md text-primary tracking-tight">Nova</span>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="material-symbols-outlined text-primary">settings</span>
+</div>
+</header>
+<main class="pt-32 px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-4 lg:grid-cols-6 gap-gutter">
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 bg-surface-container-high squircle"></div>
+<div class="w-12 h-3 bg-surface-container-highest rounded"></div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 bg-surface-container-high squircle"></div>
+<div class="w-12 h-3 bg-surface-container-highest rounded"></div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 bg-surface-container-high squircle"></div>
+<div class="w-12 h-3 bg-surface-container-highest rounded"></div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 bg-surface-container-high squircle"></div>
+<div class="w-12 h-3 bg-surface-container-highest rounded"></div>
+</div>
+</div>
+<section class="mt-16 grid grid-cols-3 gap-gutter">
+<div class="h-48 bg-surface-container rounded-xl"></div>
+<div class="h-48 bg-surface-container-low rounded-xl"></div>
+<div class="h-48 bg-surface-container-high rounded-xl"></div>
+</section>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-md transition-all duration-300">
+<!-- Modal Form -->
+<div class="glass-panel w-full max-w-[440px] p-8 rounded-[32px] animate-in fade-in zoom-in-95 duration-300 flex flex-col gap-8">
+<!-- Header -->
+<div class="flex flex-col gap-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Create Folder</h1>
+<p class="font-body-md text-on-surface-variant">Organize your shortcuts into a custom collection.</p>
+</div>
+<!-- Form Content -->
+<div class="flex flex-col gap-6">
+<!-- Folder Name Input -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant" for="folder-name">Folder Name</label>
+<input class="w-full h-12 px-4 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-lg text-on-surface focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-outline" id="folder-name" placeholder="e.g. Work Tools" type="text"/>
+</div>
+<!-- Personalization: Color Selection -->
+<div class="flex flex-col gap-3">
+<label class="font-label-md text-label-md text-on-surface-variant">Personalize</label>
+<div class="flex items-center justify-between bg-surface-container-low p-4 rounded-2xl">
+<!-- Saturated Vibrant Dots for Dark Mode -->
+<div class="flex gap-3">
+<button class="color-dot active shadow-primary bg-[#4F46E5]" onclick="selectColor(this)" title="Indigo"></button>
+<button class="color-dot shadow-secondary bg-[#10B981]" onclick="selectColor(this)" title="Emerald"></button>
+<button class="color-dot shadow-tertiary bg-[#F59E0B]" onclick="selectColor(this)" title="Amber"></button>
+<button class="color-dot shadow-error bg-[#EF4444]" onclick="selectColor(this)" title="Crimson"></button>
+<button class="color-dot shadow-primary-container bg-[#F97316]" onclick="selectColor(this)" title="Orange"></button>
+<button class="color-dot shadow-secondary-container bg-[#8B5CF6]" onclick="selectColor(this)" title="Violet"></button>
+</div>
+<!-- Icon Selector Trigger -->
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">folder_open</span>
+</button>
+</div>
+</div>
+<!-- Icon/Emoji Preview Section -->
+<div class="flex items-center gap-4 px-4 py-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl">
+<div class="w-10 h-10 bg-[#4F46E5] squircle flex items-center justify-center transition-colors duration-300" id="preview-box">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">folder</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Preview</span>
+<span class="font-body-md text-on-surface-variant text-sm" id="preview-text">New Folder</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex gap-3 mt-4">
+<button class="flex-1 h-12 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-xl">
+                Cancel
+            </button>
+<button class="flex-[2] h-12 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:brightness-110 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20">
+                Create Folder
+            </button>
+</div>
+</div>
+</div>
+<!-- Footer (Shared Component Guidance) -->
+<footer class="fixed bottom-0 left-0 w-full py-8 flex flex-col items-center gap-4 z-10 pointer-events-none opacity-40">
+<div class="flex gap-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Privacy</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Terms</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Help</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Nova Hub. All rights reserved.</p>
+</footer>
+<script>
+    // Simple Interaction Logic
+    function selectColor(el) {
+        // Remove active state from all dots
+        document.querySelectorAll('.color-dot').forEach(dot => {
+            dot.classList.remove('active');
+        });
+        // Add active state to clicked dot
+        el.classList.add('active');
+        
+        // Update Preview box color
+        const previewBox = document.getElementById('preview-box');
+        previewBox.style.backgroundColor = window.getComputedStyle(el).backgroundColor;
+    }
+
+    // Live text preview
+    const nameInput = document.getElementById('folder-name');
+    const previewText = document.getElementById('preview-text');
+    
+    nameInput.addEventListener('input', (e) => {
+        previewText.textContent = e.target.value || 'New Folder';
+    });
+</script>
+</body></html>

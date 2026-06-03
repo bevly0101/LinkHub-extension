@@ -1,0 +1,105 @@
+:root {
+  /* ObsidianFlux Purple theme */
+  --color-background: #0F0F1A;
+  --color-on-background: #e2e0fc;
+  --color-surface: #111125;
+  --color-on-surface: #e2e0fc;
+  --color-on-surface-variant: #cdc2d7;
+  --color-surface-container: #1e1e32;
+  --color-surface-container-low: #1a1a2e;
+  --color-surface-container-lowest: #0c0c1f;
+  --color-surface-container-high: #28283d;
+  --color-surface-container-highest: #333348;
+  --color-surface-dim: #111125;
+  --color-surface-bright: #37374d;
+  --color-surface-variant: #333348;
+
+  --color-primary: #d6baff;
+  --color-primary-container: #aa73ff;
+  --color-on-primary: #430089;
+  --color-on-primary-container: #3a0079;
+  --color-primary-fixed: #ecdcff;
+  --color-primary-fixed-dim: #d6baff;
+  --color-inverse-primary: #7931d9;
+
+  --color-secondary: #c7c5d5;
+  --color-secondary-container: #484855;
+  --color-on-secondary: #302f3b;
+  --color-on-secondary-container: #b9b7c6;
+  --color-secondary-fixed: #e3e0f1;
+  --color-secondary-fixed-dim: #c7c5d5;
+
+  --color-tertiary: #ffb961;
+  --color-tertiary-container: #3e2400;
+  --color-on-tertiary: #472a00;
+  --color-on-tertiary-container: #3e2400;
+  --color-tertiary-fixed: #ffddb8;
+  --color-tertiary-fixed-dim: #ffb961;
+
+  --color-outline: #968da0;
+  --color-outline-variant: #4b4454;
+
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-on-error: #690005;
+  --color-on-error-container: #ffdad6;
+
+  --color-inverse-surface: #e2e0fc;
+  --color-surface-tint: #d6baff;
+
+  /* Typography */
+  --font-display-lg: "Hanken Grotesk", system-ui, sans-serif;
+  --font-headline-lg: "Hanken Grotesk", system-ui, sans-serif;
+  --font-headline-md: "Hanken Grotesk", system-ui, sans-serif;
+  --font-body-lg: "Inter", system-ui, sans-serif;
+  --font-body-md: "Inter", system-ui, sans-serif;
+  --font-label-md: "Geist", "Inter", system-ui, sans-serif;
+  --font-label-sm: "Geist", "Inter", system-ui, sans-serif;
+  --font-family: "Inter", system-ui, sans-serif;
+
+  --font-display-lg-size: 48px;
+  --font-headline-lg-size: 32px;
+  --font-headline-md-size: 24px;
+  --font-body-lg-size: 18px;
+  --font-body-md-size: 16px;
+  --font-label-md-size: 14px;
+  --font-label-sm-size: 12px;
+
+  /* Spacing */
+  --spacing-unit: 4px;
+  --spacing-xs: 4px;
+  --spacing-base: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 24px;
+  --spacing-lg: 48px;
+  --spacing-xl: 80px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 32px;
+  --container-max: 1200px;
+  --container-padding: 20px;
+
+  /* Sidebar */
+  --sidebar-width: 256px;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1.25rem;
+  --radius-squircle: 24%;
+  --radius-modal: 32px;
+  --radius-full: 9999px;
+
+  /* Effects */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --transition-fast: 0.2s ease;
+  --transition-modal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Glows */
+  --neon-glow-primary: 0 0 20px -5px rgba(214, 186, 255, 0.3);
+  --neon-glow-tertiary: 0 0 20px -5px rgba(255, 185, 97, 0.3);
+  --neon-glow-error: 0 0 20px -5px rgba(255, 180, 171, 0.3);
+}

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkHub | Hub de atalhos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/modals.css" />
+  <link rel="stylesheet" href="css/edit-mode.css" />
+</head>
+<body>
+  <!-- Atmospheric Blobs -->
+  <div class="bg-blob" style="background:var(--color-primary);top:-100px;left:-100px;"></div>
+  <div class="bg-blob" style="background:var(--color-tertiary);bottom:-100px;right:-100px;"></div>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="app-sidebar">
+    <div class="sidebar__brand">
+      <h1 class="sidebar__title">LINKHUB</h1>
+      <p class="sidebar__subtitle">shortcuts control</p>
+    </div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+    <div class="sidebar__footer">
+      <button type="button" id="btn-add-guide" class="sidebar__btn-add">
+        <span class="material-symbols-outlined">add</span>
+        <span class="sidebar__btn-add-label">Add Guide</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="app-main">
+    <!-- Top Navigation -->
+    <header class="main-header">
+      <div class="search-wrap">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input
+          id="search-input"
+          class="search-input"
+          type="search"
+          placeholder="Search resources or folders..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="main-header__actions">
+        <time id="digital-clock" class="main-header__clock" datetime="">00:00</time>
+      </div>
+    </header>
+
+    <!-- Content Grid (Bento Style) -->
+    <div class="content-area">
+      <div class="content-grid">
+        <!-- Main Column -->
+        <div class="content-main">
+          <!-- Quick Shortcuts -->
+          <div class="section">
+            <div class="section__header">
+              <h2 class="section__title">
+                <span class="section__accent section__accent--primary"></span>
+                Quick Shortcuts
+              </h2>
+              <button type="button" id="edit-grid-btn" class="section__edit-btn">Edit Grid</button>
+            </div>
+            <div id="shortcut-grid" class="shortcut-grid"></div>
+          </div>
+
+          <!-- Workspace Folders -->
+          <div class="section">
+            <div class="section__header">
+              <h2 class="section__title">
+                <span class="section__accent section__accent--tertiary"></span>
+                Workspace Folders
+              </h2>
+            </div>
+            <div id="folder-grid" class="folder-grid"></div>
+          </div>
+
+          <!-- Search Results -->
+          <div class="section" id="search-section" style="display:none">
+            <div class="section__header">
+              <h2 class="section__title">
+                <span class="section__accent section__accent--primary"></span>
+                Resultado de busca
+              </h2>
+              <span id="search-results-count" class="chip">0 resultados</span>
+            </div>
+            <div id="search-results-grid" class="shortcut-grid"></div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar Widgets -->
+        <div class="content-side">
+          <div class="widget widget--status">
+            <div class="widget__header">
+              <span class="widget__label">SYSTEM STATUS</span>
+              <div class="widget__dot"></div>
+            </div>
+            <div class="widget__body">
+              <div class="metric">
+                <div class="metric__row">
+                  <span>CPU Usage</span>
+                  <span class="metric__value">14%</span>
+                </div>
+                <div class="metric__bar">
+                  <div class="metric__fill" style="width:14%"></div>
+                </div>
+              </div>
+              <div class="metric">
+                <div class="metric__row">
+                  <span>Memory</span>
+                  <span class="metric__value">4.2GB</span>
+                </div>
+                <div class="metric__bar">
+                  <div class="metric__fill" style="width:65%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="widget widget--updates">
+            <h3 class="widget__label">NEON UPDATES</h3>
+            <div class="widget__body">
+              <div class="update-item">
+                <span class="material-symbols-outlined update-item__icon">history</span>
+                <div>
+                  <p class="update-item__title">New Hub Component</p>
+                  <p class="update-item__time">2 hours ago</p>
+                </div>
+              </div>
+              <div class="update-item">
+                <span class="material-symbols-outlined update-item__icon">security</span>
+                <div>
+                  <p class="update-item__title">Security Patch v2.4</p>
+                  <p class="update-item__time">Yesterday</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Google Web Search -->
+  <div id="web-search-overlay" class="web-search-overlay"></div>
+  <div id="web-search-wrap" class="web-search-wrap">
+    <form id="web-search-form" class="web-search-bar" action="https://www.google.com/search" method="GET" target="_top" role="search">
+      <span class="material-symbols-outlined web-search-icon">search</span>
+      <input id="web-search-input" class="web-search-input" type="text" name="q" placeholder="Pesquisar na web..." autocomplete="off" aria-label="Pesquisar no Google" />
+      <button type="submit" class="web-search-submit" aria-label="Buscar no Google">
+        <span class="material-symbols-outlined">travel_explore</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- FAB -->
+  <button type="button" id="fab" class="fab" aria-label="Configurações" aria-haspopup="true">
+    <span class="material-symbols-outlined">settings</span>
+  </button>
+
+  <!-- Context Menu -->
+  <div id="context-menu" class="context-menu hidden"></div>
+
+  <div id="fab-menu" class="fab-menu hidden" role="menu">
+    <button type="button" id="fab-new-link" class="fab-menu__item" role="menuitem">
+      <span class="material-symbols-outlined">link</span>
+      Novo atalho
+    </button>
+    <button type="button" id="fab-new-folder" class="fab-menu__item" role="menuitem">
+      <span class="material-symbols-outlined">create_new_folder</span>
+      Nova pasta
+    </button>
+    <button type="button" id="fab-edit-grid" class="fab-menu__item" role="menuitem">
+      <span class="material-symbols-outlined">edit</span>
+      Editar painel
+    </button>
+    <hr class="fab-menu__divider" />
+    <button type="button" id="fab-export" class="fab-menu__item" role="menuitem">
+      <span class="material-symbols-outlined">file_download</span>
+      Exportar dados
+    </button>
+    <button type="button" id="fab-import" class="fab-menu__item" role="menuitem">
+      <span class="material-symbols-outlined">file_upload</span>
+      Importar dados
+    </button>
+  </div>
+
+  <!-- Edit Header -->
+  <header id="edit-header" class="edit-header hidden">
+    <h1 class="edit-header__title">Editar painel</h1>
+    <p class="edit-header__subtitle">
+      Organize seu espaço. Arraste os ícones para reordenar ou use o X para remover um atalho.
+    </p>
+    <div class="edit-header__actions">
+      <button type="button" id="btn-done-edit" class="btn-primary">Concluir</button>
+    </div>
+  </header>
+
+  <!-- Edit Tip Card -->
+  <section id="edit-tip-card" class="edit-tip-card hidden" aria-hidden="true">
+    <div class="glass-panel">
+      <div>
+        <div class="edit-tip-card__tags">
+          <span class="edit-tip-card__tag">DICA</span>
+          <span class="edit-tip-card__tag">NOVIDADE</span>
+        </div>
+        <h3 class="edit-tip-card__title">Agrupamento inteligente</h3>
+        <p class="edit-tip-card__text">
+          Em breve você poderá arrastar um atalho sobre outro para criar uma pasta automaticamente.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal: criar guia -->
+  <div id="modal-guide" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="guide-modal-title">
+    <div class="modal-panel glass-panel">
+      <div class="modal-panel__header">
+        <h2 id="guide-modal-title" class="modal-panel__title">Nova guia</h2>
+        <p class="modal-panel__subtitle">Crie uma nova guia para organizar seus atalhos.</p>
+      </div>
+      <form id="form-guide" class="modal-panel__body">
+        <div class="form-group">
+          <label class="form-label" for="guide-name">Nome da guia</label>
+          <input id="guide-name" class="form-input" type="text" placeholder="ex.: Estudos" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ícone</label>
+          <div class="guide-icons" id="guide-icons">
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="home" checked />
+              <span class="material-symbols-outlined">home</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="work" />
+              <span class="material-symbols-outlined">work</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="public" />
+              <span class="material-symbols-outlined">public</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="theater_comedy" />
+              <span class="material-symbols-outlined">theater_comedy</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="code" />
+              <span class="material-symbols-outlined">code</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="school" />
+              <span class="material-symbols-outlined">school</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="shopping_cart" />
+              <span class="material-symbols-outlined">shopping_cart</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="music_note" />
+              <span class="material-symbols-outlined">music_note</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="favorite" />
+              <span class="material-symbols-outlined">favorite</span>
+            </label>
+            <label class="guide-icon-option">
+              <input type="radio" name="guide-icon" value="star" />
+              <span class="material-symbols-outlined">star</span>
+            </label>
+          </div>
+        </div>
+        <p id="guide-error" class="form-error" role="alert"></p>
+        <div class="modal-panel__actions">
+          <button type="button" id="guide-cancel" class="btn-ghost">Cancelar</button>
+          <button type="submit" id="guide-submit" class="btn-primary">Criar guia</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: novo/editar atalho -->
+  <div id="modal-shortcut" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="shortcut-modal-title">
+    <div class="modal-panel glass-panel modal-panel--wide">
+      <div class="modal-panel__header">
+        <h2 id="shortcut-modal-title" class="modal-panel__title">Novo atalho</h2>
+        <p class="modal-panel__subtitle">Personalize seu hub de navegação</p>
+      </div>
+      <form id="form-shortcut" class="modal-panel__body">
+        <div class="modal-preview-box">
+          <span class="modal-preview-box__badge">Prévia</span>
+          <div class="modal-preview-box__icon">
+            <img id="shortcut-favicon-preview" alt="" class="is-placeholder" hidden />
+          </div>
+          <span id="shortcut-name-preview" class="modal-preview-box__name">Novo atalho</span>
+        </div>
+        <div class="form-group" id="shortcut-url-group">
+          <label class="form-label form-label--upper" for="shortcut-url">URL do link</label>
+          <div class="form-input-wrap">
+            <input id="shortcut-url" class="form-input" type="url" placeholder="https://exemplo.com" required />
+            <span class="material-symbols-outlined">link</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--upper" for="shortcut-name">Nome exibido</label>
+          <div class="form-input-wrap">
+            <input id="shortcut-name" class="form-input" type="text" placeholder="Nome do site" required />
+            <span class="material-symbols-outlined">label</span>
+          </div>
+        </div>
+        <p id="shortcut-error" class="form-error" role="alert"></p>
+        <div class="modal-panel__actions modal-panel__actions--end">
+          <button type="button" id="shortcut-cancel" class="btn-ghost">Cancelar</button>
+          <button type="submit" id="shortcut-submit" class="btn-primary">Salvar atalho</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: criar pasta -->
+  <div id="modal-folder" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="folder-modal-title">
+    <div class="modal-panel glass-panel">
+      <div class="modal-panel__header">
+        <h2 id="folder-modal-title" class="modal-panel__title">Criar pasta</h2>
+        <p class="modal-panel__subtitle">Organize seus atalhos em uma coleção personalizada.</p>
+      </div>
+      <form id="form-folder" class="modal-panel__body">
+        <div class="form-group">
+          <label class="form-label" for="folder-name">Nome da pasta</label>
+          <input id="folder-name" class="form-input" type="text" placeholder="ex.: Ferramentas de trabalho" required />
+        </div>
+        <div class="form-group" id="folder-color-group">
+          <label class="form-label">Personalizar</label>
+          <div class="personalize-row">
+            <div class="color-dots">
+              <button type="button" class="color-dot is-active" data-color="#4F46E5" style="background:#4F46E5" title="Índigo" aria-label="Cor índigo"></button>
+              <button type="button" class="color-dot" data-color="#10B981" style="background:#10B981" title="Esmeralda" aria-label="Cor esmeralda"></button>
+              <button type="button" class="color-dot" data-color="#F59E0B" style="background:#F59E0B" title="Âmbar" aria-label="Cor âmbar"></button>
+              <button type="button" class="color-dot" data-color="#EF4444" style="background:#EF4444" title="Vermelho" aria-label="Cor vermelha"></button>
+              <button type="button" class="color-dot" data-color="#F97316" style="background:#F97316" title="Laranja" aria-label="Cor laranja"></button>
+              <button type="button" class="color-dot" data-color="#8B5CF6" style="background:#8B5CF6" title="Violeta" aria-label="Cor violeta"></button>
+            </div>
+            <span class="material-symbols-outlined" style="color: var(--color-on-surface-variant);">folder_open</span>
+          </div>
+        </div>
+        <div class="preview-row">
+          <div id="folder-preview-box" class="preview-row__icon squircle" style="background:#4F46E5">
+            <span class="material-symbols-outlined" style="color:#fff;font-variation-settings:'FILL' 1">folder</span>
+          </div>
+          <div>
+            <div class="preview-row__title">Prévia</div>
+            <div id="folder-preview-text" class="preview-row__sub">Nova pasta</div>
+          </div>
+        </div>
+        <p id="folder-error" class="form-error" role="alert"></p>
+        <div class="modal-panel__actions">
+          <button type="button" id="folder-cancel" class="btn-ghost">Cancelar</button>
+          <button type="submit" id="folder-submit" class="btn-primary">Criar pasta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Overlay: visualização de pasta -->
+  <div id="modal-folder-view" class="modal-overlay modal-overlay--folder-view" role="dialog" aria-modal="true" aria-labelledby="folder-view-title">
+    <div class="modal-panel glass-panel modal-panel--folder">
+      <button type="button" id="folder-view-close" class="modal-panel__close" aria-label="Fechar">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="modal-panel__header modal-panel__header--center">
+        <h2 id="folder-view-title" class="modal-panel__title">Pasta</h2>
+        <span id="folder-view-count" class="chip">0 recursos</span>
+      </div>
+      <div id="folder-view-grid" class="folder-modal-grid"></div>
+      <div class="folder-modal-footer">
+        <button type="button" id="folder-view-add" class="btn-ghost">
+          <span class="material-symbols-outlined">add</span>
+          Adicionar atalho
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/drag.js"></script>
+  <script src="js/clock.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/edit-mode.js"></script>
+  <script src="js/modals.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

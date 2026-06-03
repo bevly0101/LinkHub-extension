@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova Hub - Folder View (Dark)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#004395",
+                    "secondary": "#505f76",
+                    "on-tertiary-container": "#fffbff",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#d8e2ff",
+                    "on-tertiary-fixed": "#311400",
+                    "tertiary-container": "#b75b00",
+                    "surface-container-lowest": "#0b121c",
+                    "inverse-surface": "#eaf1ff",
+                    "surface": "#121c2a",
+                    "primary": "#adc6ff",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#424754",
+                    "outline": "#8c919f",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "background": "#121c2a",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-surface": "#eaf1ff",
+                    "surface-container-high": "#27313f",
+                    "secondary-container": "#38485d",
+                    "on-primary": "#002d6d",
+                    "on-primary-container": "#d8e2ff",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#0058be",
+                    "surface-container": "#1e2836",
+                    "surface-dim": "#121c2a",
+                    "tertiary": "#ffb786",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "surface-bright": "#384355",
+                    "surface-tint": "#adc6ff",
+                    "surface-container-highest": "#333e4f",
+                    "on-secondary-container": "#d3e4fe",
+                    "on-surface-variant": "#c2c6d6",
+                    "surface-container-low": "#1a232f",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-error": "#690005",
+                    "inverse-on-surface": "#121c2a",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface-variant": "#424754",
+                    "primary-container": "#004395",
+                    "error-container": "#93000a",
+                    "secondary-fixed": "#d3e4fe",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-background": "#eaf1ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "container-max": "1200px",
+                    "unit": "8px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-overlay {
+            backdrop-filter: blur(24px);
+            background-color: rgba(18, 28, 42, 0.85);
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background-color: rgba(26, 35, 47, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        .squircle {
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M0 26.667C0 9.115 9.115 0 26.667 0h10.666C54.885 0 64 9.115 64 26.667v10.666C64 54.885 54.885 64 37.333 64H26.667C9.115 64 0 54.885 0 37.333V26.667z'/%3E%3C/svg%3E");
+            mask-size: contain;
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M0 26.667C0 9.115 9.115 0 26.667 0h10.666C54.885 0 64 9.115 64 26.667v10.666C64 54.885 54.885 64 37.333 64H26.667C9.115 64 0 54.885 0 37.333V26.667z'/%3E%3C/svg%3E");
+            -webkit-mask-size: contain;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface overflow-hidden">
+<!-- DASHBOARD BACKGROUND (Heavily Blurred) -->
+<main class="fixed inset-0 z-0 px-margin-desktop py-20 flex flex-col items-center blur-lg opacity-30 select-none pointer-events-none">
+<div class="w-full max-w-container-max">
+<!-- Mock Search Bar -->
+<div class="w-full max-w-2xl mx-auto mb-20 h-14 bg-surface-container rounded-xl border border-outline-variant"></div>
+<!-- Mock Shortcuts Grid -->
+<div class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-gutter justify-items-center">
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl"></div>
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl"></div>
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl"></div>
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl border-4 border-primary/20"></div>
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl"></div>
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl"></div>
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl"></div>
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl"></div>
+</div>
+</div>
+</main>
+<!-- TOP NAV BAR -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/70 backdrop-blur-xl border-b border-white/5 shadow-sm">
+<div class="flex items-center gap-6">
+<span class="font-display text-headline-md text-primary tracking-tight">Nova</span>
+<div class="hidden md:flex gap-6 items-center">
+<span class="text-on-surface-variant font-medium font-label-md text-label-md hover:bg-surface-container-high/50 px-3 py-1 rounded-lg transition-all cursor-pointer">Explore</span>
+<span class="text-primary font-bold font-label-md text-label-md border-b-2 border-primary px-3 py-1">Dashboard</span>
+<span class="text-on-surface-variant font-medium font-label-md text-label-md hover:bg-surface-container-high/50 px-3 py-1 rounded-lg transition-all cursor-pointer">Collections</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high/50 transition-all active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high/50 transition-all active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+</div>
+</nav>
+<!-- FOLDER VIEW OVERLAY -->
+<div class="fixed inset-0 z-[60] glass-overlay flex items-center justify-center animate-in fade-in duration-300" id="folder-overlay">
+<!-- Modal Panel -->
+<div class="glass-panel w-full max-w-xl mx-margin-mobile md:mx-0 rounded-[32px] overflow-hidden transform transition-all duration-300 scale-100 p-10 relative">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest/30 transition-all duration-200 active:scale-90" onclick="window.history.back()">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Header -->
+<div class="text-center mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Work</h2>
+<div class="flex justify-center">
+<span class="bg-surface-container-high text-on-secondary-container px-3 py-1 rounded-xl font-label-sm text-label-sm">4 Resources</span>
+</div>
+</div>
+<!-- Shortcuts Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-12 justify-items-center">
+<!-- Jira -->
+<a class="group flex flex-col items-center gap-3 w-20" href="#">
+<div class="w-16 h-16 squircle bg-[#2684FF]/20 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 group-active:scale-90">
+<img alt="" class="w-10 h-10 object-contain" data-alt="Jira logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG0yXUfD-cHPpXWyXnC-0sgX-9EkrkNUOO-V2YqWLjnoxCL7Gbtuk4iiS83qny7yMMTLP7k-dORsoLrjZMOcrhaqV-gJiDBQtMghB5QNp9LCDR1BH-p4-_bhrNbJA2aaDQRbcXwCKMlSMm6OdnYPQPBVuTZiDVEfiMQsVbxl3aU6rq18eKn0SS8IRRtzepAr4KWblSga08ubR-VvGfktVmsn9C7oNNdFJ4_XGXekOekH0ZRw4nGoAfcBKANBe-gA4DbMoX6sHlc5k"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Jira</span>
+</a>
+<!-- Slack -->
+<a class="group flex flex-col items-center gap-3 w-20" href="#">
+<div class="w-16 h-16 squircle bg-surface-container flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 group-active:scale-90">
+<img alt="" class="w-10 h-10 object-contain" data-alt="Slack logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqHx1SZeH4qB17aNxtqievMX3Aui76WBsYzI7rsFSzM5I6l5poO8bq5ZdkC_8xGzGhWoap6gathhQUmMLEL4tieRjSx-cmlcfL_i7EhRI7XYgoqH2TQKR_piER4XNhXNu2WadRy6Jjy9FcpWnlFRqBJJbg8e3zs4lPzxITaCKLFkncqY_sT3HeDrMiOTeaZtmImUStN6WQKSo3d4CcUfhZqMf9nFAsVHYnuyr3E6uhMmd6fmSXPuVYS4IffR1BgoHeOgMulOwgAhc"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Slack</span>
+</a>
+<!-- Notion -->
+<a class="group flex flex-col items-center gap-3 w-20" href="#">
+<div class="w-16 h-16 squircle bg-surface-container flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 group-active:scale-90">
+<img alt="" class="w-10 h-10 object-contain invert" data-alt="Notion logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcR6FwSGcOop-iyerqmqa6hrRnqj7KoHuh6443_gAXzAbNaNtZY2H3l2hyiupD6NR94BouZO0Hp_gV-r5xintWgJ2yw8gIDkGTjcHazroPUaes4v6m__-fsbaoGNFwFWjp38TkjqJQ6i_Ugz_HMz2drYelCA-KgdbJ2yF_bITNmyVoGW9LNvh5gDbdwXULUjfaV-3jZfiFV12JzD21uEhZ4rFq0f9DSuN3p5qgt-UDDuFga9i4WBytY7Q48EV-yBY69-WqHoZEw"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Notion</span>
+</a>
+<!-- Gmail -->
+<a class="group flex flex-col items-center gap-3 w-20" href="#">
+<div class="w-16 h-16 squircle bg-surface-container flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 group-active:scale-90">
+<img alt="" class="w-10 h-10 object-contain" data-alt="Gmail logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5g8ztnmdcdfY1tgcUTAeLHDwp95BKDyNo-AoG8rv9OmGgkwEzE_1SWdgm8Q_g6oXi4HI-iyxGi8KHd_pSgiXTMy6wgZyq2lztjLDK0k5jlMPiOBhNvSQow1baMPyg7ue8xhzTqMV3hT7ofyU9YPdHwaczVnh73zFaGEiEnHZq4UaYzEu-sBCYu7EMxJbpaw_39je-bksU3l9lgEA-as5K21ijr9ciD-i6Db3ek_moNnVp2DQKlZj9t_uorJhL064nBaxIUa1uymY"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Gmail</span>
+</a>
+</div>
+<!-- Footer Actions -->
+<div class="mt-16 flex justify-center border-t border-outline-variant/30 pt-8">
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-full border border-outline text-on-surface font-label-md text-label-md hover:bg-surface-container-high/50 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Add Shortcut
+                </button>
+</div>
+</div>
+</div>
+<!-- FOOTER -->
+<footer class="fixed bottom-0 left-0 w-full z-10 py-8 flex flex-col items-center gap-4 bg-transparent select-none pointer-events-none opacity-40">
+<div class="flex gap-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Privacy</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Terms</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Help</span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary">© 2024 Nova Hub. All rights reserved.</p>
+</footer>
+<script>
+        // Micro-interaction for the modal entrance
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.querySelector('.glass-panel');
+            modal.style.opacity = '0';
+            modal.style.transform = 'scale(0.95) translateY(10px)';
+            
+            setTimeout(() => {
+                modal.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                modal.style.opacity = '1';
+                modal.style.transform = 'scale(1) translateY(0)';
+            }, 100);
+        });
+
+        // Background parallax effect for depth
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            const bg = document.querySelector('main');
+            bg.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body></html>

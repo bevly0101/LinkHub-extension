@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova Hub - Edit Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        @keyframes wiggle {
+            0% { transform: rotate(-0.5deg); }
+            50% { transform: rotate(0.5deg); }
+            100% { transform: rotate(-0.5deg); }
+        }
+
+        .edit-wiggle {
+            animation: wiggle 0.3s infinite ease-in-out;
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .edit-border {
+            border: 2px dashed #424754;
+        }
+        
+        .dark .edit-border {
+            border-color: #727785;
+        }
+
+        .drop-shadow-soft {
+            filter: drop-shadow(0px 10px 30px rgba(0, 0, 0, 0.2));
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004395",
+                        "secondary": "#505f76",
+                        "on-tertiary-container": "#fffbff",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#d8e2ff",
+                        "on-tertiary-fixed": "#311400",
+                        "tertiary-container": "#b75b00",
+                        "surface-container-lowest": "#0b1c30",
+                        "inverse-surface": "#eaf1ff",
+                        "surface": "#121c2a",
+                        "primary": "#adc6ff",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#424754",
+                        "outline": "#8e919f",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "background": "#121c2a",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-surface": "#e1e2e9",
+                        "surface-container-high": "#27313f",
+                        "secondary-container": "#38485d",
+                        "on-primary": "#002d6f",
+                        "on-primary-container": "#d8e2ff",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#223146",
+                        "inverse-primary": "#0058be",
+                        "surface-container": "#1d2531",
+                        "surface-dim": "#121c2a",
+                        "tertiary": "#ffb786",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-bright": "#38414e",
+                        "surface-tint": "#adc6ff",
+                        "surface-container-highest": "#343d4c",
+                        "on-secondary-container": "#d0e1fb",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container-low": "#1a212c",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#121c2a",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-variant": "#424754",
+                        "primary-container": "#004395",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#d3e4fe",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-background": "#e1e2e9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "container-max": "1200px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation Bar (Shared Component) -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/70 backdrop-blur-xl border-b border-white/10 shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-display text-headline-md text-primary tracking-tight">Nova</span>
+<!-- Contextual Edit Mode Info -->
+<div class="hidden md:flex items-center gap-2 bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="font-label-md text-label-md">Drag to reorder shortcuts</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md shadow-sm hover:opacity-90 transition-all active:scale-95">
+                Done
+            </button>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Edit Mode Header -->
+<header class="text-center mb-16">
+<h1 class="font-display text-display text-on-surface mb-4">Edit Dashboard</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto">
+                Organize your workspace. Drag icons to reorder, or click the remove icon to delete a shortcut.
+            </p>
+</header>
+<!-- Shortcut Grid (Bento Style with Edit Indicators) -->
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter items-start">
+<!-- Shortcut Item: Work -->
+<div class="flex flex-col items-center gap-4 group relative cursor-move edit-wiggle" draggable="true">
+<div class="absolute -top-2 -right-2 z-10">
+<button class="bg-error text-on-error rounded-full p-1 shadow-lg hover:scale-110 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-[24px] bg-surface-container-highest flex items-center justify-center edit-border transition-all">
+<span class="material-symbols-outlined text-[40px] text-primary" data-icon="work">work</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Work</span>
+</div>
+<!-- Shortcut Item: Social -->
+<div class="flex flex-col items-center gap-4 group relative cursor-move edit-wiggle" draggable="true" style="animation-delay: -0.1s;">
+<div class="absolute -top-2 -right-2 z-10">
+<button class="bg-error text-on-error rounded-full p-1 shadow-lg hover:scale-110 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-[24px] bg-surface-container-highest flex items-center justify-center edit-border transition-all">
+<span class="material-symbols-outlined text-[40px] text-primary" data-icon="chat">chat</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Social</span>
+</div>
+<!-- Shortcut Item: Design Tools -->
+<div class="flex flex-col items-center gap-4 group relative cursor-move edit-wiggle" draggable="true" style="animation-delay: -0.2s;">
+<div class="absolute -top-2 -right-2 z-10">
+<button class="bg-error text-on-error rounded-full p-1 shadow-lg hover:scale-110 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-[24px] bg-surface-container-highest flex items-center justify-center edit-border transition-all">
+<span class="material-symbols-outlined text-[40px] text-primary" data-icon="palette">palette</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Design</span>
+</div>
+<!-- Shortcut Item: Finance -->
+<div class="flex flex-col items-center gap-4 group relative cursor-move edit-wiggle" draggable="true" style="animation-delay: -0.05s;">
+<div class="absolute -top-2 -right-2 z-10">
+<button class="bg-error text-on-error rounded-full p-1 shadow-lg hover:scale-110 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-[24px] bg-surface-container-highest flex items-center justify-center edit-border transition-all">
+<span class="material-symbols-outlined text-[40px] text-primary" data-icon="payments">payments</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Finance</span>
+</div>
+<!-- Shortcut Item: News -->
+<div class="flex flex-col items-center gap-4 group relative cursor-move edit-wiggle" draggable="true" style="animation-delay: -0.15s;">
+<div class="absolute -top-2 -right-2 z-10">
+<button class="bg-error text-on-error rounded-full p-1 shadow-lg hover:scale-110 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-[24px] bg-surface-container-highest flex items-center justify-center edit-border transition-all">
+<span class="material-symbols-outlined text-[40px] text-primary" data-icon="newspaper">newspaper</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">News</span>
+</div>
+<!-- Folder: Personal -->
+<div class="flex flex-col items-center gap-4 group relative cursor-move edit-wiggle" draggable="true" style="animation-delay: -0.25s;">
+<div class="absolute -top-2 -right-2 z-10">
+<button class="bg-error text-on-error rounded-full p-1 shadow-lg hover:scale-110 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-[24px] bg-surface-container-highest grid grid-cols-2 gap-2 p-3 edit-border transition-all">
+<div class="bg-outline-variant/30 rounded-md"></div>
+<div class="bg-outline-variant/30 rounded-md"></div>
+<div class="bg-outline-variant/30 rounded-md"></div>
+<div class="bg-outline-variant/30 rounded-md"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Personal</span>
+</div>
+<!-- Add New Action (Placeholder/Slot) -->
+<div class="flex flex-col items-center gap-4 group cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-[24px] border-2 border-dashed border-outline-variant flex items-center justify-center hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-[32px] text-outline" data-icon="add">add</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Add Link</span>
+</div>
+</div>
+<!-- Visual Context Card -->
+<section class="mt-24 max-w-4xl mx-auto">
+<div class="glass-panel p-8 rounded-[32px] drop-shadow-soft flex flex-col md:flex-row items-center gap-10">
+<div class="flex-shrink-0 relative overflow-hidden rounded-2xl w-full md:w-64 h-48">
+<img alt="Workspace" class="object-cover w-full h-full brightness-75" data-alt="A clean, minimalist high-tech workspace featuring a laptop on a white desk with soft ambient lighting. The atmosphere is calm and focused, reflecting a premium digital productivity experience. Subtle glass textures and a neutral color palette of soft grays and electric blue accents dominate the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0qBbKZ_bRLIT81l-GTMo3nnQjCiY3YEL8WoMvs0Gi1ZgKMxxt8_WM7ZKRLNz5UZ7PBoGZA_Q2q660bbDPhxrjECIjEc5-LivFdbIrX53H4Qn3phD4z6WIeOR_n9aOt3STN4T_l4GKDKooukFX16Yai1jY0ymqbxAjFXopcSouazxmrVfiUAS0w_5jUUEh2aSe0fdOGlZMia8DCkO4qvPyL5fzuql0pEkva7l4_Gwx3TAGY1-Zs--uqaaI6qHEYw5qL94PViZwnsQ"/>
+</div>
+<div class="text-left">
+<div class="flex gap-2 mb-4">
+<span class="bg-primary-container/30 border border-primary/20 px-3 py-1 rounded-full font-label-sm text-label-sm text-primary">TIP</span>
+<span class="bg-primary-container/30 border border-primary/20 px-3 py-1 rounded-full font-label-sm text-label-sm text-primary">NEW FEATURE</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Smart Grouping</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Drag one shortcut onto another to create a folder automatically. Nova organizes your links intelligently based on your usage patterns.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-8 flex flex-col items-center gap-4 mt-auto bg-transparent">
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Help</a>
+</div>
+<p class="font-label-sm text-label-sm text-outline opacity-60">© 2024 Nova Hub. All rights reserved.</p>
+</footer>
+<!-- Micro-interaction JS -->
+<script>
+        document.querySelectorAll('[draggable="true"]').forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                item.style.opacity = '0.4';
+                item.classList.remove('edit-wiggle');
+            });
+
+            item.addEventListener('dragend', (e) => {
+                item.style.opacity = '1';
+                item.classList.add('edit-wiggle');
+            });
+
+            // Prevent default to allow drop
+            item.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            item.addEventListener('drop', (e) => {
+                e.preventDefault();
+                // Basic visual swap simulation
+                const target = e.currentTarget;
+                if (target !== item) {
+                    const parent = target.parentNode;
+                    const nextSibling = target.nextSibling === item ? target : target.nextSibling;
+                    parent.insertBefore(item, target);
+                }
+            });
+        });
+
+        // Simple Delete Interaction
+        document.querySelectorAll('.bg-error').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const item = e.target.closest('.group');
+                item.style.transform = 'scale(0)';
+                item.style.opacity = '0';
+                setTimeout(() => {
+                    item.remove();
+                }, 300);
+            });
+        });
+    </script>
+</body></html>

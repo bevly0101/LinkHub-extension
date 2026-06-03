@@ -1,0 +1,336 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Shortcut Hub - Deep Black Neon</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            background-color: #000000;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 15px -3px rgba(0, 240, 255, 0.4), 0 0 6px -2px rgba(0, 240, 255, 0.2);
+        }
+        .neon-glow-secondary {
+            box-shadow: 0 0 15px -3px rgba(254, 0, 254, 0.4), 0 0 6px -2px rgba(254, 0, 254, 0.2);
+        }
+        .squircle {
+            border-radius: 24%;
+        }
+        .atmospheric-depth {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#004f54",
+                    "on-primary-fixed": "#002022",
+                    "background": "#131313",
+                    "error-container": "#93000a",
+                    "on-error": "#690005",
+                    "surface-container-highest": "#353534",
+                    "secondary-container": "#fe00fe",
+                    "secondary-fixed": "#ffd7f5",
+                    "tertiary": "#fff2ff",
+                    "on-tertiary-fixed-variant": "#7000a7",
+                    "surface-container-high": "#2a2a2a",
+                    "surface-variant": "#353534",
+                    "inverse-primary": "#006970",
+                    "on-secondary-fixed": "#380038",
+                    "on-secondary": "#5b005b",
+                    "surface": "#131313",
+                    "surface-container": "#201f1f",
+                    "on-tertiary-fixed": "#30004b",
+                    "outline-variant": "#3b494b",
+                    "secondary": "#ffabf3",
+                    "on-secondary-fixed-variant": "#810081",
+                    "secondary-fixed-dim": "#ffabf3",
+                    "tertiary-fixed": "#f5d9ff",
+                    "surface-bright": "#3a3939",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-dim": "#131313",
+                    "error": "#ffb4ab",
+                    "outline": "#849495",
+                    "on-error-container": "#ffdad6",
+                    "on-surface": "#e5e2e1",
+                    "on-background": "#e5e2e1",
+                    "on-tertiary-container": "#9300da",
+                    "on-primary-container": "#006970",
+                    "surface-container-low": "#1c1b1b",
+                    "tertiary-container": "#f0cdff",
+                    "primary-fixed-dim": "#00dbe9",
+                    "primary": "#dbfcff",
+                    "surface-tint": "#00dbe9",
+                    "on-primary": "#00363a",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary-fixed": "#7df4ff",
+                    "on-secondary-container": "#500050",
+                    "primary-container": "#00f0ff",
+                    "on-surface-variant": "#b9cacb",
+                    "inverse-on-surface": "#313030",
+                    "on-tertiary": "#4f0077",
+                    "tertiary-fixed-dim": "#e5b4ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "code-md": ["jetbrainsMono"]
+            },
+            "fontSize": {
+                    "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "code-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-black min-h-screen flex flex-col font-body-md text-body-md">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 bottom-0 z-40 h-screen w-20 md:w-64 flex flex-col border-r border-surface-container-highest bg-black">
+<div class="p-md">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-container tracking-tight">HILLS HUB</h1>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">shortcuts control</p>
+</div>
+<nav class="flex-grow mt-md px-2 space-y-2">
+<!-- Active Tab: Home -->
+<a class="flex items-center gap-4 bg-surface-container-low text-primary-container border-l-4 border-primary-container px-4 py-3 transition-transform active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="home">home</span>
+<span class="hidden md:block font-label-md text-label-md">Home</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-3 transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="hidden md:block font-label-md text-label-md">Work</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-3 transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+<span class="hidden md:block font-label-md text-label-md">Social</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-3 transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="theater_comedy">theater_comedy</span>
+<span class="hidden md:block font-label-md text-label-md">Entertainment</span>
+</a>
+</nav>
+<div class="p-md mt-auto">
+<button class="w-full bg-primary-container text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 neon-glow-primary hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="hidden md:block">Add Guide</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-20 md:ml-64 flex-grow relative atmospheric-depth min-h-screen">
+<!-- Top Navigation -->
+<header class="flex justify-between items-center w-full px-margin-desktop py-md bg-black/80 backdrop-blur-md sticky top-0 z-30">
+<div class="relative w-full max-w-xl group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant group-focus-within:text-primary-container transition-colors" data-icon="search">search</span>
+<input class="w-full bg-[#050505] border border-surface-container-highest rounded-full py-2 pl-12 pr-4 text-on-surface focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-all outline-none font-label-md text-label-md" placeholder="Search resources or folders..." type="text">
+</div>
+
+</header>
+<!-- Content Grid (Bento Style) -->
+<div class="px-margin-desktop py-lg max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Folders / Sections -->
+<div class="md:col-span-3">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-base">
+<span class="w-1 h-8 bg-primary-container rounded-full"></span>
+                            Quick Shortcuts
+                        </h2>
+<button class="text-on-tertiary-container hover:underline font-label-md text-label-md">Edit Grid</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-md">
+<!-- Shortcut Squircles -->
+<div class="flex flex-col items-center gap-base group cursor-pointer">
+<div class="squircle w-16 h-16 bg-[#0A0A0A] border border-[#1A1A1A] flex items-center justify-center text-primary-container group-hover:border-primary-container group-hover:neon-glow-primary transition-all duration-300 transform group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl" data-icon="terminal">terminal</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface">Terminal</span>
+</div>
+<div class="flex flex-col items-center gap-base group cursor-pointer">
+<div class="squircle w-16 h-16 bg-[#0A0A0A] border border-[#1A1A1A] flex items-center justify-center text-primary-container group-hover:border-primary-container group-hover:neon-glow-primary transition-all duration-300 transform group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl" data-icon="code">code</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface">VS Code</span>
+</div>
+<div class="flex flex-col items-center gap-base group cursor-pointer">
+<div class="squircle w-16 h-16 bg-[#0A0A0A] border border-[#1A1A1A] flex items-center justify-center text-primary-container group-hover:border-primary-container group-hover:neon-glow-primary transition-all duration-300 transform group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl" data-icon="database">database</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface">Database</span>
+</div>
+<div class="flex flex-col items-center gap-base group cursor-pointer">
+<div class="squircle w-16 h-16 bg-[#0A0A0A] border border-[#1A1A1A] flex items-center justify-center text-primary-container group-hover:border-primary-container group-hover:neon-glow-primary transition-all duration-300 transform group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl" data-icon="monitoring">monitoring</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface">Metrics</span>
+</div>
+<div class="flex flex-col items-center gap-base group cursor-pointer">
+<div class="squircle w-16 h-16 bg-[#0A0A0A] border border-[#1A1A1A] flex items-center justify-center text-primary-container group-hover:border-primary-container group-hover:neon-glow-primary transition-all duration-300 transform group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl" data-icon="cloud">cloud</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface">AWS</span>
+</div>
+<div class="flex flex-col items-center gap-base group cursor-pointer">
+<div class="squircle w-16 h-16 bg-[#0A0A0A] border border-[#1A1A1A] flex items-center justify-center text-primary-container group-hover:border-primary-container group-hover:neon-glow-primary transition-all duration-300 transform group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl" data-icon="architecture">architecture</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface">Design</span>
+</div>
+</div>
+<!-- Folders Section -->
+<div class="mt-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-base mb-md">
+<span class="w-1 h-8 bg-secondary-container rounded-full"></span>
+                            Workspace Folders
+                        </h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Folder Card -->
+<div class="bg-[#0A0A0A] border border-[#1A1A1A] p-md rounded-xl hover:border-secondary transition-all hover:scale-[1.02] cursor-pointer group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="folder">folder</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Project Aurora</h3>
+</div>
+<span class="text-on-surface-variant text-label-md">12 links</span>
+</div>
+<p class="text-on-surface-variant text-body-md opacity-70">Main backend development resources and environment staging.</p>
+</div>
+<div class="bg-[#0A0A0A] border border-[#1A1A1A] p-md rounded-xl hover:border-secondary transition-all hover:scale-[1.02] cursor-pointer group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="folder">folder</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Social Feeds</h3>
+</div>
+<span class="text-on-surface-variant text-label-md">8 links</span>
+</div>
+<p class="text-on-surface-variant text-body-md opacity-70">Curation of tech newsletters, design inspiration, and social media.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Widgets -->
+<div class="space-y-gutter">
+<div class="bg-[#0A0A0A] border border-[#1A1A1A] rounded-xl p-md">
+<div class="flex items-center justify-between mb-sm">
+<span class="font-label-md text-label-md text-primary-container">SYSTEM STATUS</span>
+<div class="w-2 h-2 rounded-full bg-[#00F0FF] animate-pulse"></div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span class="">CPU Usage</span>
+<span class="font-code-md text-code-md text-on-surface">14%</span>
+</div>
+<div class="w-full bg-[#1A1A1A] h-1 rounded-full">
+<div class="bg-primary-container h-full rounded-full" style="width: 14%"></div>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Memory</span>
+<span class="font-code-md text-code-md text-on-surface">4.2GB</span>
+</div>
+<div class="w-full bg-[#1A1A1A] h-1 rounded-full">
+<div class="bg-primary-container h-full rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+<div class="bg-[#0A0A0A] border border-[#1A1A1A] rounded-xl p-md group hover:border-primary-container transition-all">
+<h3 class="font-label-md text-label-md text-on-surface mb-sm">NEON UPDATES</h3>
+<div class="space-y-base">
+<div class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary-container" data-icon="history">history</span>
+<div>
+<p class="text-on-surface font-label-md text-label-md">New Hub Component</p>
+<p class="text-on-surface-variant text-xs">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary-container" data-icon="security">security</span>
+<div>
+<p class="text-on-surface font-label-md text-label-md">Security Patch v2.4</p>
+<p class="text-on-surface-variant text-xs">Yesterday</p>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden relative h-48 bg-[#0A0A0A] border border-[#1A1A1A]">
+<img alt="Neon Abstract" class="w-full h-full object-cover opacity-50" data-alt="A mesmerizing abstract composition featuring flowing rivers of neon cyan and magenta light against a deep black void. The digital art has a high-energy, fluid motion with light trails and subtle particle effects. The overall atmosphere is futuristic and immersive, perfectly complementing an ultra-dark neon UI design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeMF84nTPV6LOYZoHYezIF4jkptN77u-cJ8ARziYe0fQVEnKMh4mo27wBKA-bz2Ivq_B0d6DToZvO0M5PHgbz9H9ZaA2_pyrnTXdTuwgj_4rBaOUP25tXR7aHSa3Wsy48yCFI5fMY4loceK7UbLd-fQ3aM2jok5w4GEgW3UekzvwFv5n2mpcP1jWouZb6G7g8iCc4Old8YCE2ROHIkCm9X0vAQqwkCzgWZS9HVIdoLSj6WRhc4WYMfijY6Es-VPR88iMzt65Ypzic">
+<div class="absolute inset-0 flex items-end p-md bg-gradient-to-t from-black to-transparent">
+<p class="text-primary-container font-headline-md text-headline-md font-bold">Discover More</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+
+<!-- FAB -->
+<button class="fixed bottom-md right-md w-14 h-14 rounded-full bg-primary-container text-black flex items-center justify-center neon-glow-primary hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl font-bold" data-icon="rocket_launch">add</span>
+</button>
+</main>
+<script>
+        // Simple micro-interaction for the search bar
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('neon-glow-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('neon-glow-primary');
+        });
+
+        // Hover animation for squircles to enhance the "Neon Border" feel
+        const squircles = document.querySelectorAll('.squircle');
+        squircles.forEach(s => {
+            s.addEventListener('mouseenter', () => {
+                s.style.borderColor = '#00F0FF';
+            });
+            s.addEventListener('mouseleave', () => {
+                s.style.borderColor = '#1A1A1A';
+            });
+        });
+    </script>
+
+
+</body></html>

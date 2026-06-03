@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova | Shortcut Hub</title>
+<!-- Google Fonts: Inter & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-secondary-container": "#54647a",
+                "on-primary-fixed-variant": "#004395",
+                "on-secondary-fixed": "#0b1c30",
+                "on-primary-fixed": "#001a42",
+                "on-background": "#f8f9ff", // Swapped for dark mode visibility
+                "outline": "#727785",
+                "tertiary": "#924700",
+                "surface": "#121c2a", // Dark surface
+                "on-primary-container": "#fefcff",
+                "on-error": "#ffffff",
+                "surface-container-high": "#27313f", // Dark surface container
+                "on-tertiary-fixed": "#311400",
+                "inverse-on-surface": "#eaf1ff",
+                "tertiary-container": "#b75b00",
+                "surface-bright": "#27313f",
+                "on-secondary": "#ffffff",
+                "surface-variant": "#424754",
+                "on-tertiary": "#ffffff",
+                "on-primary": "#ffffff",
+                "surface-container": "#1d2736",
+                "on-error-container": "#93000a",
+                "on-tertiary-container": "#fffbff",
+                "secondary-container": "#38485d",
+                "on-secondary-fixed-variant": "#38485d",
+                "tertiary-fixed": "#ffdcc6",
+                "surface-container-highest": "#38485d",
+                "secondary": "#b7c8e1",
+                "primary-container": "#0058be",
+                "inverse-primary": "#adc6ff",
+                "primary-fixed": "#d8e2ff",
+                "surface-dim": "#0b121d",
+                "on-surface": "#f8f9ff",
+                "inverse-surface": "#f8f9ff",
+                "primary": "#adc6ff", // Lighter primary for contrast on dark
+                "on-surface-variant": "#c2c6d6",
+                "primary-fixed-dim": "#adc6ff",
+                "background": "#121c2a", // Dark background
+                "secondary-fixed-dim": "#b7c8e1",
+                "outline-variant": "#424754",
+                "error-container": "#ffdad6",
+                "secondary-fixed": "#d3e4fe",
+                "on-background": "#e2e2e6"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "unit": "8px",
+                "margin-mobile": "16px",
+                "container-max": "1200px",
+                "margin-desktop": "48px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "label-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-sm": ["Inter"],
+                "headline-lg": ["Inter"],
+                "display": ["Inter"],
+                "headline-md": ["Inter"],
+                "headline-lg-mobile": ["Inter"],
+                "body-md": ["Inter"]
+            },
+            "fontSize": {
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .squircle {
+            border-radius: 20px;
+            aspect-ratio: 1/1;
+        }
+        .glass-panel {
+            background: rgba(18, 28, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary/30">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/70 backdrop-blur-xl border-b border-white/5 shadow-sm transition-all duration-300">
+<div class="flex items-center gap-4 flex-1">
+<span class="font-display text-headline-md text-primary tracking-tight">Nova</span>
+</div>
+<!-- Centered Search Hub -->
+<div class="hidden md:flex flex-[2] justify-center">
+<div class="relative w-full max-w-xl group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-11 pl-12 pr-4 bg-surface-container border border-outline-variant/30 rounded-full font-body-lg text-body-lg text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all placeholder:text-on-surface-variant/50" placeholder="Search links or folders..." type="text"/>
+</div>
+</div>
+<div class="flex items-center justify-end gap-6 flex-1">
+<!-- Digital Clock -->
+<div class="font-headline-md text-headline-md text-primary tracking-tighter" id="digital-clock">
+                00:00
+            </div>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-32 px-margin-mobile md:px-margin-desktop mb-24 max-w-container-max mx-auto w-full">
+<!-- Shortcut Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-12 gap-y-16 py-8">
+<!-- Shortcut Item: Google -->
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<img alt="" class="w-8 h-8 invert group-hover:invert-0 transition-all opacity-80 group-hover:opacity-100" data-alt="A clean high-resolution close-up of a minimalist app icon with a sleek tech aesthetic. The composition is centered on a soft grey background with vibrant modern accents. High-key professional lighting highlights the matte texture and sharp geometric edges of the brand mark. The overall mood is sophisticated and digital-first." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCOkLsV-0S3H-yYzg-Cn42oDis-cNszhPa9TTYZhJF9eJCjBKnLoMXQlQhlFpBVl7p2ZZWDEfNqUoUj1x5tosi2FkrJb3kLmPeLTfTLG7G7l3VrxDp4n0AZi1NM5ZNwiSr_uVpPy5jkv8YM8xSNck7sQx13lifF-In6FP2UHsaJqpyEEiFssSbiUYGCqTctr2sjvwIsOpEnXXzpbOH0Pm-KUpFiLiXVj_H99M-RXrAS92xMsARcYpdbkP8J7JejbYGBvgpmtto950"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Google</span>
+</a>
+<!-- Shortcut Item: YouTube -->
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<img alt="" class="w-8 h-8 invert group-hover:invert-0 transition-all opacity-80 group-hover:opacity-100" data-alt="Close up of a stylized video platform icon floating in a bright minimalist digital environment. The icon has a premium matte finish with subtle rounded corners. Soft diffused lighting creates a gentle drop shadow on the clean off-white background, emphasizing depth and quality. The color palette is restricted to whites, greys, and a single accent color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOmvEpvWiHNcbwjsK1sGkds1PUxTOUMjXzPrd3YNW85CuMvtu44BY4_lLOGj43eVmEIqyI7yjG2TbMu7Z8tgGxnu_TPkmwpBXwQTTK8zbdRauH7EM0X4toRmr7WdLwFjJiFuQZErALtkDUUtxByZ2siPJZiRijvjXP6oy8DppKLfi4FPWic0CSjUg7lHHzo4gQtw5bgwOQbhqG002_Hej4lDScLT8njAYgO0i6j9Q5MpIlyfivkUwLXtb9jh5o49jbxSl40LSnjkU"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">YouTube</span>
+</a>
+<!-- Shortcut Item: Figma -->
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<img alt="" class="w-8 h-8 invert group-hover:invert-0 transition-all opacity-80 group-hover:opacity-100" data-alt="A macro shot of a design tool icon rendered as a three-dimensional minimalist object. The object has a smooth satiny texture and reflects a soft cool light. It sits within a vast white space that suggests unlimited creative potential. The lighting is crisp and modern, following a light-mode aesthetic with high clarity and contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyPcgzmLuDT7ZnzMCBqOPXhMCxBbp2rt5NGByRjhq1oGT3bOu3a_sFP5_HSr2DzFfqh4lxj65LN9RUcMe9zIjFxYFHISgMLz_cxodSW0i3n3QAgnrXZDAVUamNW2J6HfwqZrgw3JY2xrqhpY9qAhfIf1OS9WrG28hEITvmBIkze_PhMyck4OoznarGJWp8b099s24EOJne6ho_eStQqAJPYmYonXHpeOH6jBlLtbTRuTgaQM0DOgOxuAO6dWapTfZYqNPYqYgbxYE"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Figma</span>
+</a>
+<!-- Folder: Work -->
+<div class="group flex flex-col items-center gap-3 cursor-pointer transition-transform duration-300 hover:-translate-y-1" onclick="console.log('Open Work Folder')">
+<div class="squircle w-16 h-16 bg-secondary-container/20 border-2 border-dashed border-outline-variant/30 flex items-center justify-center group-hover:bg-secondary-container/40 transition-all">
+<div class="grid grid-cols-2 gap-1 p-3 opacity-40 group-hover:opacity-80">
+<div class="w-2.5 h-2.5 rounded-sm bg-primary"></div>
+<div class="w-2.5 h-2.5 rounded-sm bg-primary"></div>
+<div class="w-2.5 h-2.5 rounded-sm bg-primary"></div>
+<div class="w-2.5 h-2.5 rounded-sm bg-primary"></div>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Work</span>
+</div>
+<!-- Shortcut Item: Github -->
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<img alt="" class="w-8 h-8 invert group-hover:invert-0 transition-all opacity-80 group-hover:opacity-100" data-alt="A clean technical icon representing code hosting, presented in a minimalist squircle container. The scene is bathed in neutral studio lighting that accentuates the clean lines and professional silhouette. The background is a flat, bright surface that enhances the floating effect of the component. The aesthetic is contemporary and focused on productivity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL1jL5z60Y8T994InO8_eQKsRcD0udVM6hUGIhkEr5pO-N92xgPu4UliO_ZuljNUxYmRKzw6l_jOEOlHt9lj_XdIy4lDdpFH4qwBx99L59Pc6uyN3yIoqK0h-Z1JkYg1Ez3iNN5Njln4ZKYkFgKlVIj0qmSBx46rpbQLPPFMXhGU3J-78Jnf3gRI6IYoh7q96xIDUVH81xvw1O4PtMOkjvsw5YxKGkDaAJwj-YPsIYZV8IY10jpzp7cZfiXGS1WS5WYm_6X734V2E"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Github</span>
+</a>
+<!-- Folder: Social -->
+<div class="group flex flex-col items-center gap-3 cursor-pointer transition-transform duration-300 hover:-translate-y-1" onclick="console.log('Open Social Folder')">
+<div class="squircle w-16 h-16 bg-secondary-container/20 border-2 border-dashed border-outline-variant/30 flex items-center justify-center group-hover:bg-secondary-container/40 transition-all">
+<div class="grid grid-cols-2 gap-1 p-3 opacity-40 group-hover:opacity-80">
+<div class="w-2.5 h-2.5 rounded-sm bg-secondary"></div>
+<div class="w-2.5 h-2.5 rounded-sm bg-secondary"></div>
+<div class="w-2.5 h-2.5 rounded-sm bg-secondary"></div>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Social</span>
+</div>
+<!-- More placeholders to demonstrate grid -->
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1 opacity-70 hover:opacity-100" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">language</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Browser</span>
+</a>
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1 opacity-70 hover:opacity-100" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">mail</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Mail</span>
+</a>
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1 opacity-70 hover:opacity-100" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_today</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Cal</span>
+</a>
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1 opacity-70 hover:opacity-100" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">description</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Docs</span>
+</a>
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1 opacity-70 hover:opacity-100" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">music_note</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Music</span>
+</a>
+<a class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1 opacity-70 hover:opacity-100" href="#">
+<div class="squircle w-16 h-16 bg-surface-container flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">analytics</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Stats</span>
+</a>
+</div>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-10 right-10 w-14 h-14 bg-primary text-on-primary-fixed rounded-full shadow-lg shadow-primary/20 flex items-center justify-center scale-100 active:scale-90 transition-all hover:brightness-110 hover:shadow-xl z-50 group">
+<span class="material-symbols-outlined transition-transform group-hover:rotate-90">add</span>
+</button>
+<!-- Footer -->
+<footer class="w-full py-8 flex flex-col items-center gap-4 mt-auto">
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Help</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity">© 2024 Nova Hub. All rights reserved.</p>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('digital-clock').textContent = `${hours}:${minutes}`;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Atmospheric Fade-in effect
+        window.addEventListener('DOMContentLoaded', () => {
+            const main = document.querySelector('main');
+            main.style.opacity = '0';
+            main.style.transform = 'translateY(10px)';
+            main.style.transition = 'all 0.8s ease-out';
+            
+            setTimeout(() => {
+                main.style.opacity = '1';
+                main.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body></html>
