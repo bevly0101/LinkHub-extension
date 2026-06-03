@@ -1,5 +1,13 @@
 const STORAGE_KEY = "linkhub-v1";
 
+const DEFAULT_SETTINGS = {
+  showClock: true,
+  showSearch: true,
+  showWebSearch: true,
+  sidebarPosition: "left",
+  theme: "ultra-glass-depth",
+};
+
 const GUIDE_ICONS = [
   "home", "work", "public", "theater_comedy",
   "code", "school", "shopping_cart", "music_note",
@@ -41,6 +49,7 @@ function createSeedData() {
   return {
     version: 2,
     activeGuide: "guide_home",
+    settings: { ...DEFAULT_SETTINGS },
     guides: {
       guide_home: { id: "guide_home", name: "Home", icon: "home", order: [ids.google, ids.youtube, ids.github, ids.work] },
       guide_work: { id: "guide_work", name: "Work", icon: "work", order: [] },
@@ -72,6 +81,7 @@ function migrateV1toV2(v1data) {
   return {
     version: 2,
     activeGuide: homeId,
+    settings: v1data.settings || { ...DEFAULT_SETTINGS },
     guides,
     guideOrder: [homeId, ...extraGuides.map((g) => g.id)],
     items: v1data.items || {},
@@ -136,6 +146,24 @@ const Storage = {
       return true;
     }
     return false;
+  },
+
+  getSettings() {
+    const data = this.getData();
+    if (!data.settings) {
+      data.settings = { ...DEFAULT_SETTINGS };
+      this.save();
+    }
+    return data.settings;
+  },
+
+  updateSettings(partial) {
+    const data = this.getData();
+    if (!data.settings) {
+      data.settings = { ...DEFAULT_SETTINGS };
+    }
+    Object.assign(data.settings, partial);
+    this.save();
   },
 
   addGuide({ name, icon }) {
@@ -322,6 +350,7 @@ const Storage = {
       this._data = {
         version: data.version,
         activeGuide: data.activeGuide || data.guideOrder[0],
+        settings: data.settings || { ...DEFAULT_SETTINGS },
         guides: data.guides,
         guideOrder: data.guideOrder,
         items: data.items,

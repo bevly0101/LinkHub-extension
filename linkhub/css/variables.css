@@ -93,6 +93,9 @@
 
   /* Effects */
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --header-bg: rgba(17, 17, 37, 0.3);
+  --bg-gradient-start: #1a1a2e;
+  --bg-gradient-end: #0F0F1A;
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
   --transition-fast: 0.2s ease;

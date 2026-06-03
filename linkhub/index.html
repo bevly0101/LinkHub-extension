@@ -9,6 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/variables.css" />
   <link rel="stylesheet" href="css/base.css" />
@@ -16,6 +21,12 @@
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/modals.css" />
   <link rel="stylesheet" href="css/edit-mode.css" />
+  <link rel="stylesheet" href="css/theme-obsidian.css" />
+  <link rel="stylesheet" href="css/theme-prism.css" />
+  <link rel="stylesheet" href="css/theme-aurora.css" />
+  <link rel="stylesheet" href="css/theme-terminal.css" />
+  <link rel="stylesheet" href="css/theme-monochrome.css" />
+  <link rel="stylesheet" href="css/theme-sahara.css" />
 </head>
 <body>
   <!-- Atmospheric Blobs -->
@@ -68,7 +79,6 @@
                 <span class="section__accent section__accent--primary"></span>
                 Quick Shortcuts
               </h2>
-              <button type="button" id="edit-grid-btn" class="section__edit-btn">Edit Grid</button>
             </div>
             <div id="shortcut-grid" class="shortcut-grid"></div>
           </div>
@@ -97,68 +107,51 @@
           </div>
         </div>
 
-        <!-- Right Sidebar Widgets -->
-        <div class="content-side">
-          <div class="widget widget--status">
-            <div class="widget__header">
-              <span class="widget__label">SYSTEM STATUS</span>
-              <div class="widget__dot"></div>
-            </div>
-            <div class="widget__body">
-              <div class="metric">
-                <div class="metric__row">
-                  <span>CPU Usage</span>
-                  <span class="metric__value">14%</span>
-                </div>
-                <div class="metric__bar">
-                  <div class="metric__fill" style="width:14%"></div>
-                </div>
-              </div>
-              <div class="metric">
-                <div class="metric__row">
-                  <span>Memory</span>
-                  <span class="metric__value">4.2GB</span>
-                </div>
-                <div class="metric__bar">
-                  <div class="metric__fill" style="width:65%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="widget widget--updates">
-            <h3 class="widget__label">NEON UPDATES</h3>
-            <div class="widget__body">
-              <div class="update-item">
-                <span class="material-symbols-outlined update-item__icon">history</span>
-                <div>
-                  <p class="update-item__title">New Hub Component</p>
-                  <p class="update-item__time">2 hours ago</p>
-                </div>
-              </div>
-              <div class="update-item">
-                <span class="material-symbols-outlined update-item__icon">security</span>
-                <div>
-                  <p class="update-item__title">Security Patch v2.4</p>
-                  <p class="update-item__time">Yesterday</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </main>
 
-  <!-- Google Web Search -->
+  <!-- Web Search -->
   <div id="web-search-overlay" class="web-search-overlay"></div>
   <div id="web-search-wrap" class="web-search-wrap">
-    <form id="web-search-form" class="web-search-bar" action="https://www.google.com/search" method="GET" target="_top" role="search">
+    <form id="web-search-form" class="web-search-bar" role="search">
       <span class="material-symbols-outlined web-search-icon">search</span>
-      <input id="web-search-input" class="web-search-input" type="text" name="q" placeholder="Pesquisar na web..." autocomplete="off" aria-label="Pesquisar no Google" />
-      <button type="submit" class="web-search-submit" aria-label="Buscar no Google">
-        <span class="material-symbols-outlined">travel_explore</span>
+      <button type="button" id="web-search-engine-btn" class="web-search-engine-btn" title="Motor: Google — Clique para alterar">
+        <img id="web-search-engine-icon" class="web-search-engine-icon" src="https://www.google.com/s2/favicons?domain=google.com&sz=64" alt="Google" />
+      </button>
+      <input id="web-search-input" class="web-search-input" type="text" name="q" placeholder="Pesquisar na web..." autocomplete="off" aria-label="Pesquisar na web" />
+      <button type="submit" class="web-search-submit" aria-label="Buscar">
+        <span class="material-symbols-outlined">east</span>
       </button>
     </form>
+    <div id="web-search-suggestions" class="web-search-suggestions"></div>
+    <div id="web-search-engine-dropdown" class="web-search-engine-dropdown" role="menu">
+    <button type="button" class="web-search-engine-option" data-engine="google" role="menuitem">
+      <img class="web-search-engine-logo" src="https://www.google.com/s2/favicons?domain=google.com&sz=64" alt="Google" />
+      <span>Google</span>
+      <span class="web-search-engine-check">check</span>
+    </button>
+    <button type="button" class="web-search-engine-option" data-engine="bing" role="menuitem">
+      <img class="web-search-engine-logo" src="https://www.google.com/s2/favicons?domain=bing.com&sz=64" alt="Bing" />
+      <span>Bing</span>
+      <span class="web-search-engine-check">check</span>
+    </button>
+    <button type="button" class="web-search-engine-option" data-engine="duckduckgo" role="menuitem">
+      <img class="web-search-engine-logo" src="https://www.google.com/s2/favicons?domain=duckduckgo.com&sz=64" alt="DuckDuckGo" />
+      <span>DuckDuckGo</span>
+      <span class="web-search-engine-check">check</span>
+    </button>
+    <button type="button" class="web-search-engine-option" data-engine="yahoo" role="menuitem">
+      <img class="web-search-engine-logo" src="https://www.google.com/s2/favicons?domain=yahoo.com&sz=64" alt="Yahoo" />
+      <span>Yahoo</span>
+      <span class="web-search-engine-check">check</span>
+    </button>
+    <button type="button" class="web-search-engine-option" data-engine="brave" role="menuitem">
+      <img class="web-search-engine-logo" src="https://www.google.com/s2/favicons?domain=brave.com&sz=64" alt="Brave" />
+      <span>Brave</span>
+      <span class="web-search-engine-check">check</span>
+    </button>
+    </div>
   </div>
 
   <!-- FAB -->
@@ -178,9 +171,10 @@
       <span class="material-symbols-outlined">create_new_folder</span>
       Nova pasta
     </button>
-    <button type="button" id="fab-edit-grid" class="fab-menu__item" role="menuitem">
-      <span class="material-symbols-outlined">edit</span>
-      Editar painel
+    
+    <button type="button" id="fab-settings" class="fab-menu__item" role="menuitem">
+      <span class="material-symbols-outlined">tune</span>
+      Personalizar
     </button>
     <hr class="fab-menu__divider" />
     <button type="button" id="fab-export" class="fab-menu__item" role="menuitem">
@@ -385,6 +379,109 @@
           Adicionar atalho
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal: Configurações -->
+  <div id="modal-settings" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-panel glass-panel">
+      <div class="modal-panel__header">
+        <h2 id="settings-modal-title" class="modal-panel__title">Personalizar painel</h2>
+        <p class="modal-panel__subtitle">Configure quais elementos aparecem e onde a barra de navegação fica.</p>
+      </div>
+      <form id="form-settings" class="modal-panel__body">
+        <fieldset class="settings-group">
+          <legend class="settings-group__title">Visibilidade</legend>
+          <label class="settings-toggle">
+            <input type="checkbox" id="settings-clock" checked />
+            <span class="settings-toggle__switch"></span>
+            <span class="settings-toggle__label">Mostrar relógio</span>
+          </label>
+          <label class="settings-toggle">
+            <input type="checkbox" id="settings-search" checked />
+            <span class="settings-toggle__switch"></span>
+            <span class="settings-toggle__label">Mostrar barra de busca</span>
+          </label>
+          <label class="settings-toggle">
+            <input type="checkbox" id="settings-web-search" checked />
+            <span class="settings-toggle__switch"></span>
+            <span class="settings-toggle__label">Mostrar pesquisa web</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="settings-group" id="settings-theme-group">
+          <legend class="settings-group__title">Tema</legend>
+          <div class="settings-positions">
+            <label class="settings-radio">
+              <input type="radio" name="theme" value="ultra-glass-depth" />
+              <span class="material-symbols-outlined">dark_mode</span>
+              <span>Ultra Glass</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="theme" value="obsidian" />
+              <span class="material-symbols-outlined">nights_stay</span>
+              <span>Obsidian</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="theme" value="prism" />
+              <span class="material-symbols-outlined">light_mode</span>
+              <span>Prism</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="theme" value="aurora" />
+              <span class="material-symbols-outlined">auto_awesome</span>
+              <span>Aurora</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="theme" value="terminal" />
+              <span class="material-symbols-outlined">code</span>
+              <span>Terminal</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="theme" value="monochrome" />
+              <span class="material-symbols-outlined">contrast</span>
+              <span>Monochrome</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="theme" value="sahara" />
+              <span class="material-symbols-outlined">sunny</span>
+              <span>Sahara</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="settings-group">
+          <legend class="settings-group__title">Posição da barra de navegação</legend>
+          <div class="settings-positions">
+            <label class="settings-radio">
+              <input type="radio" name="sidebar-pos" value="left" checked />
+              <span class="material-symbols-outlined">chevron_left</span>
+              <span>Esquerda</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="sidebar-pos" value="right" />
+              <span class="material-symbols-outlined">chevron_right</span>
+              <span>Direita</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="sidebar-pos" value="top" />
+              <span class="material-symbols-outlined">expand_less</span>
+              <span>Superior</span>
+            </label>
+            <label class="settings-radio">
+              <input type="radio" name="sidebar-pos" value="bottom" />
+              <span class="material-symbols-outlined">expand_more</span>
+              <span>Inferior</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p id="settings-error" class="form-error" role="alert"></p>
+        <div class="modal-panel__actions">
+          <button type="button" id="settings-cancel" class="btn-ghost">Cancelar</button>
+          <button type="submit" id="settings-submit" class="btn-primary">Salvar</button>
+        </div>
+      </form>
     </div>
   </div>
 

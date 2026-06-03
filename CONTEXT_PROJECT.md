@@ -4,7 +4,7 @@
 
 LinkHub é um hub centralizador de atalhos do navegador. Funciona como uma **Extensão Chrome (Manifest V3)** que substitui a página de nova aba (`chrome_url_overrides.newtab`). Também pode ser aberto via `file://` como SPA.
 
-**Propósito:** Servir como página inicial / nova aba do navegador com atalhos organizados, pastas, busca global, barra de pesquisa Google e persistência via `chrome.storage.local` / `localStorage`.
+**Propósito:** Servir como página inicial / nova aba do navegador com atalhos organizados, pastas, busca global, barra de pesquisa web e persistência via `chrome.storage.local` / `localStorage`.
 
 ---
 
@@ -27,19 +27,19 @@ linkhub/
 ├── css/
 │   ├── variables.css             # Design tokens (tema ObsidianFlux Purple)
 │   ├── base.css                  # Reset, tipografia, glass-panel, squircle, bg-blobs
-│   ├── layout.css                # Sidebar, header, content grid, edit header
-│   ├── components.css            # Shortcut grid, folder cards, widgets, FAB, forms, context menu, web search
+│   ├── layout.css                # Sidebar, header, content grid, edit header, sidebar positions, visibility toggles
+│   ├── components.css            # Shortcut grid, folder cards, FAB, forms, context menu, web search, settings modal
 │   ├── modals.css                # Overlays, animações de modais, folder view
 │   └── edit-mode.css             # Wiggle, drag feedback, placeholder, remove btn, drop targets
 │
 └── js/
-    ├── app.js                    # Bootstrap, orquestração, initWebSearch, parallax, folder drop
-    ├── storage.js                # CRUD localStorage, schema v2, seed data, migração, export/import
+    ├── app.js                    # Bootstrap, orquestração, initWebSearch, parallax, folder drop, applySettings
+    ├── storage.js                # CRUD localStorage, schema v2, seed data, migração, export/import, settings
     ├── render.js                 # Renderização DOM (grid, sidebar, busca cross-guide, badges)
     ├── drag.js                   # HTML5 Drag & Drop nativo para reordenação
     ├── search.js                 # Filtro em tempo real
     ├── clock.js                  # Relógio digital HH:MM
-    ├── modals.js                 # Todos os modais + FAB + context menus + export/import
+    ├── modals.js                 # Todos os modais + FAB + context menus + export/import + settings modal
     └── edit-mode.js              # Modo edição (remover itens)
 ```
 
@@ -78,6 +78,12 @@ linkhub/
 {
   version: 2,
   activeGuide: "guide_home",
+  settings: {
+    showClock: true,
+    showSearch: true,
+    showWebSearch: true,
+    sidebarPosition: "left"    // "left" | "right" | "top" | "bottom"
+  },
   guides: {
     "guide_home": { id, name, icon, order: ["itemId1", "itemId2"] }
   },
@@ -111,13 +117,15 @@ linkhub/
 - `load()` — Carrega do localStorage ou cria seed data (com migração v1→v2)
 - `save()` — Persiste no localStorage
 - `getData()` / `getItem(id)` — Acesso aos dados
+- **`getSettings()`** — Retorna configurações com fallback para defaults
+- **`updateSettings(partial)`** — Atualiza configurações parcialmente
 - `addLink({ name, url, icon, parentId, guideId })` — Cria link
 - `updateLink(id, { name, url, icon })` — Edita link
 - `addFolder({ name, color, icon, parentId, guideId })` — Cria pasta
 - `updateFolder(id, { name, color, icon })` — Edita pasta
 - `removeItem(id)` — Remove item recursivamente
-- **`exportData()`** — Exporta dados completos como JSON (com metadados `_exportedAt` e `_version`)
-- **`importData(json)`** — Importa e substitui dados do JSON, validando estrutura
+- **`exportData()`** — Exporta dados completos como JSON (com metadados `_exportedAt`, `_version` e configurações)
+- **`importData(json)`** — Importa e substitui dados do JSON, validando estrutura (inclui configurações)
 - `getGuides()` / `getActiveGuide()` / `setActiveGuide(id)` — Gerenciamento de guias
 - `addGuide({ name, icon })` / `updateGuide(id, { name, icon })` / `removeGuide(id)` — CRUD de guias
 - `reorderGuide(fromId, toId, position)` — Reordena guias na sidebar
@@ -142,12 +150,14 @@ linkhub/
 - **Folder Modal** (`#modal-folder`): Criar/editar pasta com seletor de cor
 - **Folder View** (`#modal-folder-view`): Visualizar conteúdo de pasta em grid com drag
 - **Guide Modal** (`#modal-guide`): Criar/editar guia com seletor de ícone
-- **FAB Menu** (`#fab`): Menu flutuante (⚙️) → Novo atalho, Nova pasta, Editar painel, **Exportar dados**, **Importar dados**
-- **Context Menu**: Clique direito em itens/pastas/guias/área vazia com opções editar/remover
+- **Settings Modal** (`#modal-settings`): Personalizar visibilidade de elementos e posição da sidebar
+- **FAB Menu** (`#fab`): Menu flutuante (⚙️) → Novo atalho, Nova pasta, Editar painel, **Personalizar**, **Exportar dados**, **Importar dados**
+- **Context Menu**: Clique direito em itens/pastas/guias/área vazia com opções editar/remover + **Personalizar**
 - **`handleExport()`** — Download do JSON de backup
 - **`handleImport()`** — Upload de arquivo JSON com validação + modais de sucesso/erro
 - **`showGuideContextMenu(x, y, guideId, guideName)`** — Context menu de guias (editar/remover)
-- **`showEmptyAreaContextMenu(x, y)`** — Context menu em área vazia (criar atalho/pasta, editar grid)
+- **`showEmptyAreaContextMenu(x, y)`** — Context menu em área vazia (criar atalho/pasta, editar grid, personalizar)
+- **`openSettingsModal()` / `saveSettings()` / `closeSettingsModal()`** — Gerenciamento do modal de configurações
 
 ### `DragManager` (drag.js)
 - `makeSortable(containerEl, { itemSelector, ignoreSelector, onReorder })` — Habilita drag-and-drop nativo
@@ -166,12 +176,13 @@ linkhub/
 - `removeItem(id)` — Remove item com animação (e fallback sem animação)
 
 ### `App` (app.js)
-- `init()` — Bootstrap: carrega Storage, inicia Render/Clock/Modals/Search/Drag, configura eventos, **parallax**, **folder drop**
+- `init()` — Bootstrap: carrega Storage, **aplica configurações**, inicia Render/Clock/Modals/Search/Drag, configura eventos, **parallax**, **folder drop**
+- `applySettings()` — Aplica configurações de visibilidade e posição da sidebar no DOM
 - `refresh(filter?)` — Re-renderiza grid, pastas ou resultados de busca
 - `enterEditMode()` / `exitEditMode()` — Alterna modo edição (wiggle, drag, remove)
 - `switchGuide(guideId)` — Troca de guia ativa
 - `renderSidebar()` — Re-renderiza sidebar
-- `initWebSearch()` — Inicializa barra de busca Google (expandir/recolher)
+- `initWebSearch()` — Inicializa barra de busca web (expandir/recolher, sugestões, seletor de motor)
 - **`initParallax()`** — Efeito parallax nos blobs de fundo (movimento com mouse)
 - **`initFolderDrop()`** — Permite arrastar link sobre card de pasta para adicionar
 - **`_addItemToFolder(dragId, folderId)`** — Move link para dentro de pasta
@@ -182,21 +193,30 @@ linkhub/
 
 ### Tela Principal
 - Sidebar com guias (Home, Work, Social, Entertainment) — **reordenáveis por drag**
+- **4 posições de sidebar**: esquerda, direita, superior, inferior
 - Grid de atalhos em squircles com favicons automáticos
 - Cards de pasta com cor, contagem de links e descrição — **drag de link para dentro da pasta**
 - Busca global por nome e URL em **todas as guias** (com badge do nome da guia)
-- Relógio digital no header
-- Widgets estáticos (CPU, Memory, Neon Updates)
+- Relógio digital no header **(configurável)**
+- Barra de busca de atalhos **(configurável)**
+- Barra de pesquisa web com sugestões e seletor de motor **(configurável)**
 - **Efeito parallax** nos blobs decorativos de fundo
+
+### Personalização
+- **Modal de Configurações** (`#modal-settings`): Acessível via FAB ou menu de contexto
+- **Visibilidade**: Ativar/desativar relógio, barra de busca de ícones e pesquisa web
+- **Posição da Sidebar**: Esquerda, Direita, Superior ou Inferior
+- **Persistência**: Salvo no `localStorage` e incluso no export/import JSON
 
 ### Modais
 - **Novo/Editar Atalho:** URL, nome, preview com favicon automático
 - **Nova/Editar Pasta:** Nome, seletor de cor, preview squircle
 - **Visualização de Pasta:** Grid de atalhos internos com drag & drop
 - **Nova/Editar Guia:** Nome, seletor de ícone (12 ícones disponíveis)
+- **Personalizar Painel:** Toggles de visibilidade e seletor de posição da sidebar
 
 ### Modo Edição
-- Ativado via FAB (⚙️) → "Editar painel" ou menu de contexto
+- Ativado via FAB (⚙️) → "Editar painel", botão "Edit Grid" ou menu de contexto
 - Itens com animação wiggle, bordas tracejadas
 - Botões de editar (✏️) e remover (❌) com animação
 - Drag-and-drop nativo para reordenar
@@ -204,14 +224,16 @@ linkhub/
 - Edit header e dica flutuante (agrupamento inteligente)
 
 ### Export / Import de Dados
-- **Exportar:** Gera arquivo `.json` com todos os dados (guias, itens, ordem) + metadados
-- **Importar:** Upload de arquivo `.json` com validação de estrutura; substitui dados atuais
+- **Exportar:** Gera arquivo `.json` com todos os dados (guias, itens, ordem, configurações) + metadados
+- **Importar:** Upload de arquivo `.json` com validação de estrutura; substitui dados atuais (inclui configurações)
 - Modais de sucesso/erro para feedback
 
-### Web Search (Google)
+### Web Search
 - Barra fixa no canto inferior da tela
 - Ao focar: animação para o centro da tela com backdrop blur
-- Submete para `https://www.google.com/search?q=...`
+- **Seletor de motor de pesquisa**: Google, Bing, DuckDuckGo, Yahoo, Brave (com logos via favicon)
+- **Sugestões de pesquisa**: baseadas em links salvos e pesquisas recentes
+- Navegação por teclado (ArrowUp/ArrowDown/Enter)
 - Fecha com Escape ou click no overlay
 
 ### Drag & Drop
@@ -229,8 +251,8 @@ linkhub/
 |---------|-----------------|
 | `variables.css` | Design tokens (cores, tipografia, spacing, radius, efeitos) — tema ObsidianFlux Purple |
 | `base.css` | Reset, classes utilitárias (`.glass-panel`, `.liquid-glass`, `.squircle`, `.neon-glow-*`, `.bg-blob`) |
-| `layout.css` | Sidebar, main content, search header, content grid, edit header/mode layout |
-| `components.css` | Shortcut grid, folder cards, widgets, FAB, buttons, forms, color dots, context menu, web search bar, guide icon picker, search results |
+| `layout.css` | Sidebar, main content, search header, content grid, edit header/mode layout, **sidebar positions**, **visibility toggles** |
+| `components.css` | Shortcut grid, folder cards, FAB, buttons, forms, color dots, context menu, web search bar, guide icon picker, search results, **settings modal** |
 | `modals.css` | Modal overlay, panel, folder view grid |
 | `edit-mode.css` | Wiggle animation, drag states, remove/edit buttons, placeholder, drop targets, drag ghost |
 
@@ -241,10 +263,13 @@ linkhub/
 - `.neon-glow-primary` / `.neon-glow-tertiary` / `.neon-glow-error` — Box-shadows com glow
 - `.is-blurred` — Aplicado ao body quando modal de pasta está aberto
 - `.is-open` — Visibilidade do modal
-- `.is-expanded` — Barra de busca Google expandida
+- `.is-expanded` — Barra de busca web expandida
+- **`.sidebar-left` / `.sidebar-right` / `.sidebar-top` / `.sidebar-bottom`** — Posição da sidebar no `body`
+- **`.hide-clock` / `.hide-search` / `.hide-web-search`** — Toggles de visibilidade no `body`
 - `.edit-mode` — Classe no body durante modo edição
 - `.is-drop-target-folder` — Folder card destacado durante drag de link
 - `.search-result__guide` — Badge com nome da guia nos resultados de busca
+- `.settings-toggle` / `.settings-radio` — Componentes do modal de configurações
 
 ---
 
@@ -253,13 +278,15 @@ linkhub/
 ```
 User Action
   ↓
-App (app.js) — orquestra (inclui parallax, folder drop, web search)
+App (app.js) — orquestra (inclui parallax, folder drop, web search, applySettings)
   ↓
-Storage (storage.js) — CRUD → localStorage (inclui export/import)
+Storage (storage.js) — CRUD → localStorage (inclui settings, export/import)
   ↓
 Render (render.js) — atualiza DOM (inclui busca cross-guide)
   ↑
 Search, Drag, Modals, EditMode — interações
+  ↑
+Settings — controlam visibilidade e layout via CSS classes no body
 ```
 
 ---
@@ -272,7 +299,7 @@ Search, Drag, Modals, EditMode — interações
 | Google Fonts (Hanken Grotesk) | `fonts.googleapis.com` | Títulos e headlines |
 | Google Fonts (Geist) | `fonts.googleapis.com` | Labels e botões |
 | Material Symbols | `fonts.googleapis.com` | Ícones |
-| Favicons | `google.com/s2/favicons` | Favicons automáticos dos atalhos |
+| Favicons | `google.com/s2/favicons` | Favicons automáticos dos atalhos e logos dos motores de busca |
 
 **Nota:** Requer internet na primeira visita. Sem internet, ícones fallback para `language` Material Icon.
 
@@ -294,6 +321,7 @@ Search, Drag, Modals, EditMode — interações
 - **Eventos:** Listeners adicionados via JS (poucos inline no HTML)
 - **HTML:** Comentários em português para seções; classes semânticas
 - **FAB:** Ícone `settings` (⚙️) como gatilho do menu flutuante
+- **Settings:** Estado gerenciado via `body` classes, persistido no schema principal
 
 ---
 
@@ -308,7 +336,10 @@ Search, Drag, Modals, EditMode — interações
 | Scroll de nome longo no hover (marquee) | ✅ Completo |
 | Modo edição com drag & drop | ✅ Completo |
 | Sidebar com múltiplas guias (reordenáveis) | ✅ Completo |
-| Barra de busca Google (animada) | ✅ Completo |
+| **Sidebar em 4 posições (esquerda, direita, superior, inferior)** | ✅ Completo |
+| Barra de pesquisa web (animada, sugestões, seletor de motor) | ✅ Completo |
+| **Modal de personalização (visibilidade + posição)** | ✅ Completo |
+| **Configurações exportáveis/importáveis** | ✅ Completo |
 | Relógio | ✅ Completo |
 | Persistência localStorage | ✅ Completo |
 | Migração schema v1 → v2 | ✅ Completo |

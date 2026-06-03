@@ -16,7 +16,7 @@ body {
   font-size: var(--font-body-md-size);
   line-height: 1.5;
   color: var(--color-on-background);
-  background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0F0F1A 100%);
+  background: radial-gradient(circle at 50% 50%, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
   min-height: 100vh;
   overflow-x: hidden;
 }

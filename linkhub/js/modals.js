@@ -26,6 +26,7 @@ const Modals = {
     this.bindFolderViewModal();
     this.bindFabMenu();
     this.bindColorDots();
+    this.bindSettingsModal();
     this.bindGuideModal();
     this.bindContextMenu();
   },
@@ -178,13 +179,24 @@ const Modals = {
     const editOption = document.createElement("button");
     editOption.type = "button";
     editOption.className = "context-menu__item";
-    editOption.innerHTML = `<span class="material-symbols-outlined">edit</span> Editar grid`;
+    //editOption.innerHTML = `<span class="material-symbols-outlined">edit</span> Editar grid`;
     editOption.addEventListener("click", (e) => {
       e.stopPropagation();
       this.hideContextMenu();
       if (window.App) App.enterEditMode();
     });
     menu.appendChild(editOption);
+
+    const settingsOption = document.createElement("button");
+    settingsOption.type = "button";
+    settingsOption.className = "context-menu__item";
+    settingsOption.innerHTML = `<span class="material-symbols-outlined">tune</span> Personalizar`;
+    settingsOption.addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.hideContextMenu();
+      this.openSettingsModal();
+    });
+    menu.appendChild(settingsOption);
 
     const rect = menu.getBoundingClientRect();
     if (rect.right > window.innerWidth) {
@@ -227,9 +239,14 @@ const Modals = {
       this.openFolderModal();
     });
 
-    document.getElementById("fab-edit-grid")?.addEventListener("click", () => {
+    /**document.getElementById("fab-edit-grid")?.addEventListener("click", () => {
       this.fabMenu.classList.add("hidden");
       if (window.App) App.enterEditMode();
+    });**/
+
+    document.getElementById("fab-settings")?.addEventListener("click", () => {
+      this.fabMenu.classList.add("hidden");
+      this.openSettingsModal();
     });
 
     document.getElementById("fab-export")?.addEventListener("click", () => {
@@ -684,6 +701,86 @@ const Modals = {
     this.currentFolderViewId = null;
     document.body.classList.remove("is-blurred");
     this.close(this.folderViewOverlay);
+  },
+
+  /* ---- Settings Modal ---- */
+  bindSettingsModal() {
+    const form = document.getElementById("form-settings");
+    const cancelBtn = document.getElementById("settings-cancel");
+    const overlay = document.getElementById("modal-settings");
+
+    cancelBtn?.addEventListener("click", () => this.closeSettingsModal());
+    overlay?.addEventListener("click", (e) => {
+      if (e.target === overlay) this.closeSettingsModal();
+    });
+
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.saveSettings();
+    });
+  },
+
+  openSettingsModal() {
+    const settings = Storage.getSettings();
+
+    const clockChk = document.getElementById("settings-clock");
+    const searchChk = document.getElementById("settings-search");
+    const webChk = document.getElementById("settings-web-search");
+    const errorEl = document.getElementById("settings-error");
+
+    if (errorEl) errorEl.textContent = "";
+    if (clockChk) clockChk.checked = settings.showClock;
+    if (searchChk) searchChk.checked = settings.showSearch;
+    if (webChk) webChk.checked = settings.showWebSearch;
+
+    document.querySelectorAll('input[name="sidebar-pos"]').forEach((inp) => {
+      inp.checked = inp.value === settings.sidebarPosition;
+    });
+
+    const currentTheme = settings.theme || 'ultra-glass-depth';
+    document.querySelectorAll('input[name="theme"]').forEach((inp) => {
+      inp.checked = inp.value === currentTheme;
+    });
+
+    const overlay = document.getElementById("modal-settings");
+    this.open(overlay);
+  },
+
+  closeSettingsModal() {
+    const overlay = document.getElementById("modal-settings");
+    this.close(overlay);
+  },
+
+  saveSettings() {
+    const clockChk = document.getElementById("settings-clock");
+    const searchChk = document.getElementById("settings-search");
+    const webChk = document.getElementById("settings-web-search");
+    const errorEl = document.getElementById("settings-error");
+
+    let sidebarPosition = "left";
+    document.querySelectorAll('input[name="sidebar-pos"]').forEach((inp) => {
+      if (inp.checked) sidebarPosition = inp.value;
+    });
+
+    let theme = "ultra-glass-depth";
+    document.querySelectorAll('input[name="theme"]').forEach((inp) => {
+      if (inp.checked) theme = inp.value;
+    });
+
+    Storage.updateSettings({
+      showClock: clockChk?.checked ?? true,
+      showSearch: searchChk?.checked ?? true,
+      showWebSearch: webChk?.checked ?? true,
+      sidebarPosition,
+      theme,
+    });
+
+    this.closeSettingsModal();
+
+    if (window.App) {
+      App.applySettings();
+      App.renderSidebar();
+    }
   },
 
   /* ---- Guide Modal ---- */
