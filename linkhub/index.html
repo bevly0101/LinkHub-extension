@@ -228,48 +228,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Ícone</label>
-          <div class="guide-icons" id="guide-icons">
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="home" checked />
-              <span class="material-symbols-outlined">home</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="work" />
-              <span class="material-symbols-outlined">work</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="public" />
-              <span class="material-symbols-outlined">public</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="theater_comedy" />
-              <span class="material-symbols-outlined">theater_comedy</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="code" />
-              <span class="material-symbols-outlined">code</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="school" />
-              <span class="material-symbols-outlined">school</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="shopping_cart" />
-              <span class="material-symbols-outlined">shopping_cart</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="music_note" />
-              <span class="material-symbols-outlined">music_note</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="favorite" />
-              <span class="material-symbols-outlined">favorite</span>
-            </label>
-            <label class="guide-icon-option">
-              <input type="radio" name="guide-icon" value="star" />
-              <span class="material-symbols-outlined">star</span>
-            </label>
-          </div>
+          <div class="guide-icons" id="guide-icons"></div>
         </div>
         <p id="guide-error" class="form-error" role="alert"></p>
         <div class="modal-panel__actions">
@@ -308,6 +267,14 @@
             <input id="shortcut-name" class="form-input" type="text" placeholder="Nome do site" required />
             <span class="material-symbols-outlined">label</span>
           </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--upper" for="shortcut-icon-url">Ícone personalizado <span class="form-label--optional">(opcional)</span></label>
+          <div class="form-input-wrap">
+            <input id="shortcut-icon-url" class="form-input" type="url" placeholder="https://exemplo.com/icone.png" />
+            <span class="material-symbols-outlined">image</span>
+          </div>
+          <span class="form-hint">Se vazio, usa o favicon do link automaticamente.</span>
         </div>
         <p id="shortcut-error" class="form-error" role="alert"></p>
         <div class="modal-panel__actions modal-panel__actions--end">

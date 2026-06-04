@@ -9,9 +9,15 @@ const DEFAULT_SETTINGS = {
 };
 
 const GUIDE_ICONS = [
-  "home", "work", "public", "theater_comedy",
-  "code", "school", "shopping_cart", "music_note",
-  "photo_camera", "map", "favorite", "star",
+  "home", "work", "public", "favorite", "star",
+  "code", "school", "shopping_cart", "music_note", "theater_comedy",
+  "photo_camera", "map", "palette", "auto_awesome", "brush",
+  "devices", "smart_display", "computer", "developer_board",
+  "forest", "sunny", "ac_unit",
+  "flight", "directions_car", "hiking",
+  "restaurant", "local_cafe", "fitness_center",
+  "forum", "mail", "notifications", "groups",
+  "book", "library_books", "movie", "podcast",
 ];
 
 const FOLDER_COLORS = [

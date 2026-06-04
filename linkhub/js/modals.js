@@ -29,6 +29,23 @@ const Modals = {
     this.bindSettingsModal();
     this.bindGuideModal();
     this.bindContextMenu();
+
+    this.renderGuideIcons();
+  },
+
+  renderGuideIcons() {
+    const container = document.getElementById("guide-icons");
+    if (!container) return;
+    container.innerHTML = "";
+    Storage.GUIDE_ICONS.forEach((icon, i) => {
+      const label = document.createElement("label");
+      label.className = "guide-icon-option";
+      label.innerHTML = `
+        <input type="radio" name="guide-icon" value="${icon}"${i === 0 ? " checked" : ""} />
+        <span class="material-symbols-outlined">${icon}</span>
+      `;
+      container.appendChild(label);
+    });
   },
 
   open(overlay) {
@@ -394,6 +411,7 @@ const Modals = {
     const submitBtn = document.getElementById("shortcut-submit");
     const urlInput = document.getElementById("shortcut-url");
     const nameInput = document.getElementById("shortcut-name");
+    const iconUrlInput = document.getElementById("shortcut-icon-url");
     const errorEl = document.getElementById("shortcut-error");
     const urlGroup = document.getElementById("shortcut-url-group");
 
@@ -406,6 +424,7 @@ const Modals = {
         if (submitBtn) submitBtn.textContent = "Salvar";
         urlInput.value = item.url || "";
         nameInput.value = item.name || "";
+        if (iconUrlInput) iconUrlInput.value = item.icon || "";
         if (urlGroup) urlGroup.style.display = "block";
       }
     } else {
@@ -413,6 +432,7 @@ const Modals = {
       if (submitBtn) submitBtn.textContent = "Salvar atalho";
       urlInput.value = "";
       nameInput.value = "";
+      if (iconUrlInput) iconUrlInput.value = "";
       if (urlGroup) urlGroup.style.display = "block";
     }
 
@@ -429,9 +449,11 @@ const Modals = {
   saveShortcut() {
     const urlInput = document.getElementById("shortcut-url");
     const nameInput = document.getElementById("shortcut-name");
+    const iconUrlInput = document.getElementById("shortcut-icon-url");
     const errorEl = document.getElementById("shortcut-error");
 
     const name = nameInput.value.trim();
+    const iconUrl = iconUrlInput?.value.trim() || null;
     let url;
     try {
       url = Storage.normalizeUrl(urlInput.value);
@@ -446,12 +468,13 @@ const Modals = {
     }
 
     if (this.editingLinkId) {
-      Storage.updateLink(this.editingLinkId, { name, url });
+      Storage.updateLink(this.editingLinkId, { name, url, icon: iconUrl });
     } else {
       const activeGuide = Storage.getActiveGuide();
       Storage.addLink({
         name,
         url,
+        icon: iconUrl,
         parentId: this.shortcutParentId,
         guideId: activeGuide.id,
       });

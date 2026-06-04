@@ -1,4 +1,4 @@
-./.opencode
-./opencode.json
-./CONTEXT_PROJECT.md
-./Themes
+.opencode/
+opencode.json
+CONTEXT_PROJECT.md
+Themes/
